@@ -24,25 +24,27 @@
 		$dbname = "myDB";
 	?>
 		<div class="container">
-			<h2>FORM MEMBUAT JASA KIRIM</h2>
+				<h2>FORM MEMBUAT JASA KIRIM</h2>
 				<form class="col s12" name="jkform" method="POST" onsubmit="checkOrderForm()">
 				<div class="row">
-				<div class="input-field col s6">
-					<input placeholder="Nama" id="nama_jk" type="text">
-				</div>
-				</div>
-				<div class="row">
-				<div class="input-field col s6">
-					<input placeholder="Lama kirim" id="lama_jk" type="text">
-				</div>
+					<div class="input-field col s6">
+						<input placeholder="Nama" id="nama_jk" type="text">
+					</div>
 				</div>
 				<div class="row">
-				<div class="input-field col s6">
-					<input placeholder="Tarif" id="tarif_jk" type="text">
+					<div class="input-field col s6">
+						<input placeholder="Lama kirim" id="lama_jk" type="text">
+					</div>
 				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<input placeholder="Tarif" id="tarif_jk" type="text">
+					</div>
 				</div>
-				<a class="waves-effect waves-light btn" id="kirimSubmit">Submit</a>
-		</form>
+  				<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+   					 <i class="material-icons left">send</i>
+  				</button>
+				</form>
 		</div>
 	</body>
 </html>

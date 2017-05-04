@@ -25,45 +25,50 @@
 	?>
 	<div class="container">
 		<h2>FORM MEMBUAT PROMO</h2>
-		<form class="col s12" name="jkform" method="POST">
+		<form class="col s12" name="promoform" method="POST">
 			<div class="row">
 				<div class="input-field col s6">
+					<label>Deskripsi</label>
 					<input placeholder="Deskripsi" id="desk_promo" type="text">
-				</div>
-				</div>
-				<div class="row">
-				<label>Periode awal</label>
-					<input placeholder="Klik untuk membuka kalendar" type="date" class="datepicker">
-					
-				</div>
-				<div class="row">
-				<label>Periode akhir</label>
-					<input placeholder="Klik untuk membuka kalendar" type="date" class="datepicker">
-					
 				</div>
 				<div class="input-field col s6">
 					<label>Kode promo</label>
 					<input placeholder="Kode promo" id="kode_promo" type="text">
 				</div>
-				<div class="input-field col s12">
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<label>Periode awal</label>
+					<input id="per_awal" placeholder="Klik untuk membuka kalendar" type="date" class="datepicker">
+				</div>
+				<div class="col s6">
+					<label>Periode akhir</label>
+					<input id="per_akhir" placeholder="Klik untuk membuka kalendar" type="date" class="datepicker">
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s6">
 					<select>
-						<option value="" disabled selected>Choose your option</option>
+						<option value="" disabled selected></option>
 						<option value="1">Option 1</option>
 						<option value="2">Option 2</option>
 						<option value="3">Option 3</option>
 					</select>
 					<label>Kategori</label>
 				</div>
-				<div class="input-field col s12">
+				<div class="input-field col s6">
 					<select>
-						<option value="" disabled selected>Choose your option</option>
+						<option value="" disabled selected></option>
 						<option value="1">Option 1</option>
 						<option value="2">Option 2</option>
 						<option value="3">Option 3</option>
 					</select>
 					<label>Subkategori</label>
 				</div>
-			<a class="waves-effect waves-light btn" id="kirimSubmit">Submit</a>
+			</div>
+			<div class="row">
+				<a class="waves-effect waves-light btn" id="kirimSubmit">Submit</a>
+			</div>
 		</form>
 	</div>
 	</body>

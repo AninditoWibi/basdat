@@ -25,38 +25,38 @@
 	?>
 		<div class="container">
 			<h2>FORM MEMBUAT TOKO</h2>
-				<form class="col s12" name="jkform" method="POST" onsubmit="">
+				<form class="col s12" name="jkform" method="POST">
 					<div class="row">
-						<div class="input-field col s12">
-							<input placeholder="Nama" id="nama_toko" type="text" class="validate">
+						<div class="input-field col s6">
+						<label>Nama</label>
+						<input id="nama_toko" type="text" class="validate">
+						</div>
+						<div class="input-field col s6">
+						<label>Slogan</label>
+						<input id="slogan_toko" type="text" class="validate">
 						</div>
 					</div>
 					<div class="row">
-						<div class="input-field col s12">
-							<input placeholder="Deskripsi" id="Deskripsi_toko" type="text" class="validate">
-						</div>
+						<label>Deskripsi</label>
+						<textarea id="deskripsi_toko" class="materialize-textarea"></textarea>
 					</div>
 					<div class="row">
-						<div class="input-field col s12">
-							<input placeholder="Slogan" id="Slogan_toko" type="text" class="validate">
-						</div>
-					</div>
-					<div class="row">
-						<div class="input-field col s12">
-							<input placeholder="Lokasi" id="Lokasi_toko" type="text" class="validate">
-						</div>
+						<label>Lokasi</label>
+						<textarea id="lokasi_toko" class="materialize-textarea"></textarea>
 					</div>
 					<div class="input-field col s12" id="newJKdiv">
-					<select>
-						<option value="" disabled selected>Choose your option</option>
+					<select id="jkselector-1">
+						<option value="" disabled selected></option>
 						<option value="1">Option 1</option>
 						<option value="2">Option 2</option>
 						<option value="3">Option 3</option>
 					</select>
-					<label>Jasa Kirim</label>
-				</div>
-					<a class="waves-effect waves-light btn" id="addJKButton" onclick="addNewJKItem()">Tambah Jasa Kirim</a>
-					<a class="waves-effect waves-light btn" id="submitToko">Submit</a>
+					<label>Jasa Kirim 1</label>
+					</div>
+					<button class="btn waves-effect waves-light" id="addJKButton" onclick="addNewJKItem()">Tambah Jasa Kirim</button>
+					<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+   					 <i class="material-icons left">send</i>
+  				</button>
 			</form>
 		</div>
 	</body>

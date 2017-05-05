@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Buat Toko Baru</title>
+		<title>Buat Ulasan Baru</title>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
 		<script type="text/javascript" src="src/js/script.js"></script>
@@ -24,7 +24,8 @@
 		$dbname = "myDB";
 	?>
 		<div class="container">
-			<h2>FORM MEMBUAT ULASANS</h2>
+		<div class="card-panel z-depth-2">
+		<h3 class="center-align teal-text">Form Membuat Ulasan</h3>
 				<form class="col s12" name="jkform" method="POST">
 					<div class="row">
 						<div class="input-field col s6">
@@ -41,10 +42,13 @@
 						<label>Komentar</label>
 						<textarea id="ulas_isi" class="materialize-textarea"></textarea>
 					</div>
-					<button class="btn waves-effect waves-light" type="submit" name="action">Submit
-					<i class="material-icons left">send</i>
-  					</button>
+					<div class="row center-align">
+						<button class="btn waves-effect waves-light" id="ulasSubmit" type="submit" name="action">Submit
+   							 <i class="material-icons left">send</i>
+  						</button>
+					</div>
 				</form>
+		</div>
 		</div>
 	</body>
 </html>

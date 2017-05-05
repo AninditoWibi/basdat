@@ -24,7 +24,8 @@
 		$dbname = "myDB";
 	?>
 	<div class="container">
-		<h2>FORM MEMBUAT PROMO</h2>
+	<div class="card-panel z-depth-2">
+	<h3 class="center-align teal-text">Form Membuat Promo</h3>
 		<form class="col s12" name="promoform" method="POST">
 			<div class="row">
 				<div class="input-field col s6">
@@ -66,10 +67,14 @@
 					<label>Subkategori</label>
 				</div>
 			</div>
-			<div class="row">
-				<a class="waves-effect waves-light btn" id="kirimSubmit">Submit</a>
+			<div class="row center-align">
+				<button class="btn waves-effect waves-light" id="promoSubmit" type="submit" name="action">Submit
+   					 <i class="material-icons left">send</i>
+  				</button>
 			</div>
 		</form>
+	</div>
+		
 	</div>
 	</body>
 </html>

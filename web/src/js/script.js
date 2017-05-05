@@ -7,24 +7,6 @@ function confirmOrderForm() {
 	alert("Data jasa kirim baru valid");
 }
 
-var JKDropdownCounter = 2;
-function addNewJKItem() {
-	var newJKDropdownID = "jkselector-"+JKDropdownCounter;
-	var newJKDropdown = document.createElement('select');
-	var newJKOption = document.createElement('option');
-
-
-	newJKDropdown.setAttribute("id", newJKDropdownID);
-	newJKOption.setAttribute("value", "placeholder");
-
-	newJKDropdown.innerHTML = newJKOption;
-	newJKOption.innerHTML = "placeholder";
-
-	$(newJKDropdownID).material_select();
-	$('#newJKdiv').append(newJKDropdown);
-	JKDropdownCounter++;
-}
-
 function checkOrderForm() {
 	var isValid = true;
 	var nama = $('#nama_jk').val();

@@ -24,27 +24,36 @@
 		$dbname = "myDB";
 	?>
 		<div class="container">
-				<h2>FORM MEMBUAT JASA KIRIM</h2>
+		<div class="card-panel z-depth-2">
+			<h3 class="center-align teal-text">Form Membuat Jasa Kirim</h3>
 				<form class="col s12" name="jkform" method="POST" onsubmit="checkOrderForm()">
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field">
+						<label>Nama</label>
 						<input placeholder="Nama" id="nama_jk" type="text">
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field">
+						<label>Lama kirim</label>
 						<input placeholder="Lama kirim" id="lama_jk" type="text">
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field">
+						<label>Tarif</label>
 						<input placeholder="Tarif" id="tarif_jk" type="text">
 					</div>
 				</div>
-  				<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+				<div class="row center-align">
+				<button class="btn waves-effect waves-light" id="jkSubmit" type="submit" name="action">Submit
    					 <i class="material-icons left">send</i>
   				</button>
+				</div>
+  				
 				</form>
+		</div>
+			
 		</div>
 	</body>
 </html>

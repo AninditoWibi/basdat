@@ -5,7 +5,7 @@
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="web/src/css/materialize.min.css"  media="screen,projection"/>
     <script type="text/javascript" src="jquery-3.1.0.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
@@ -18,6 +18,7 @@
 </head>    
 <body>
 
+    <h2 class="teal-text center-align">Daftar</h2>
 	<div class="row" style="width:500px">
 		<form class="col s12">
 			<div class="input-field col s12">
@@ -53,7 +54,7 @@
                 <label for="address">Alamat</label>
 			</div>
             <div class="input-field col s12">
-               Tanggal lahir
+              Tanggal lahir
 				<input type="text" id="datepicker" name="datepicker" placeholder="" autofocus required class="validate">
                 
 			</div>
@@ -63,7 +64,7 @@
 
     
     
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="web/src/js/materialize.min.js"></script>
     <script type="text/javascript" src="select.js"></script>
 </body>
 </html>

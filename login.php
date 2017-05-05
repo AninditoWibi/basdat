@@ -5,10 +5,11 @@
      <!--Import Google Icon Font-->
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="web/src/css/materialize.min.css"  media="screen,projection"/>
 </head>
 <body>
-
+    
+    <h2 class="teal-text center-align">Log In</h2>
 	<div class="row" style="width: 500px">
 		<form class="col s12">
 			<div class="input-field col s12">
@@ -26,7 +27,7 @@
     
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="jquery-3.1.0.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="web/src/js/materialize.min.js"></script>
 
 </body>
 </html>

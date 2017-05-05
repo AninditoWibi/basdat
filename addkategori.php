@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" href="web/src/css/materialize.min.css"  media="screen,projection"/>
 </head>
 <body>
+    <h2 class="teal-text center-align">Tambah Kategori Baru</h2>
 	<div class="row" style="width: 500px">
 		<form action="#" method="post" class="col s12">
 		<div class="input-field col s12">

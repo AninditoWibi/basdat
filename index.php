@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Selamat Datang di Tokokeren</title>
+	<title>Tokokeren</title>
      <!--Import Google Icon Font-->
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
@@ -9,17 +9,63 @@
 </head>
 <body>
     <?php
-    include "navbar.php"
-    ?>
-    <h2 class="teal-text center-align">Selamat Datang di Tokokeren</h2>
-	<div class="center-align">
-        <button class="btn waves-effect waves-light btn-large" type="submit" name="action">Log in
+    @session_start();
+
+    include "navbar.php";
+        
+    if(isset($_SESSION['login'])){?> 
+      <h2 class="teal-text center-align">Menu Navigasi Pelanggan</h2>
+      <div class="center-align">
+        <a href="#" class="btn waves-effect waves-light btn-large">Membeli Produk
             <i class="material-icons right">send</i>
-        </button>
-        <button class="btn waves-effect waves-light btn-large" type="submit" name="action">Register
+        </a>
+        <a href="#" class="btn waves-effect waves-light btn-large">Melihat Transaksi
             <i class="material-icons right">send</i>
-        </button>
-    </div> 
+        </a>
+        <a href="#" class="btn waves-effect waves-light btn-large">Melihat Keranjang Belanja
+            <i class="material-icons right">send</i>
+        </a>
+        <a href="#" class="btn waves-effect waves-light btn-large">Membuka Toko
+            <i class="material-icons right">send</i>
+        </a>
+         <?php 
+        if($_SESSION['penjual']!="f"){
+         ?>
+        <a href="#" class="btn waves-effect waves-light btn-large">Menambah Produk
+            <i class="material-icons right">send</i>
+        </a> <?php 
+        } ?>
+    </div>
+    <?php  
+  } elseif(isset($_SESSION['admin'])) {
+     ?> <h2 class="teal-text center-align">Menu Navigasi Admin</h2>
+      <div class="center-align">
+        <a href="addkategori.php" class="btn waves-effect waves-light btn-large">Membuat Kategori dan Subkategori
+            <i class="material-icons right">send</i>
+        </a>
+        <a href="#" class="btn waves-effect waves-light btn-large">Membuat Jasa Kirim
+            <i class="material-icons right">send</i>
+        </a>
+        <a href="#" class="btn waves-effect waves-light btn-large">Membuat Promo
+            <i class="material-icons right">send</i>
+        </a>
+       
+        <a href="#" class="btn waves-effect waves-light btn-large">Menambah Produk
+            <i class="material-icons right">send</i>
+        </a>
+    </div>
+     <?php } else {?>
+         <h2 class="teal-text center-align">Selamat Datang di Tokokeren</h2>
+  <div class="center-align">
+        <a href="login.php" class="btn waves-effect waves-light btn-large">Log in
+            <i class="material-icons right">send</i>
+        </a>
+        <a href="register.php" class="btn waves-effect waves-light btn-large">Register
+            <i class="material-icons right">send</i>
+        </a>
+    </div>
+     <?php } ?>
+
     
     
     

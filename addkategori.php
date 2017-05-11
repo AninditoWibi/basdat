@@ -9,11 +9,22 @@
 </head>
 <body>
     <?php
-    include "navbar.php"
+    @session_start();
+    include "navbar.php";
+   
     ?>
     <h2 class="teal-text center-align">Tambah Kategori Baru</h2>
 	<div class="row" style="width: 500px">
-		<form action="#" method="post" class="col s12">
+	<?php
+    $msg = "";
+    if(isset($_SESSION['fail']))
+      $msg = "Kategori atau Subkategori Sudah ada";
+    elseif(isset($_SESSION['success']))
+    	$msg = "Kategori berhasil dimasukkan";
+      echo "<div>".$msg."</div>";
+      session_unset('wrong');
+    ?>
+		<form action="addkategoriprocess.php" method="post" class="col s12">
 		<div class="input-field col s12">
 			<input type="text" id="kodekat" name="kodekat" placeholder="Kode Kategori" autofocus required maxlength="3">
             <label for="kodekat">Kode Kategori</label>

@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Buat Jasa Kirim Baru</title>
-		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+		<script type="text/javascript" src="src/js/jquery-3.2.1.min.js"></script>
+		<script src="src/js/materialize.min.js"></script>
 		<script src="src/js/script.js"></script>
 		<script src="src/js/ajax.js"></script>
 		 <!--Import Google Icon Font-->
@@ -19,35 +19,143 @@
 	<?php
 		// lakukan integrasi sql via php
 		$servername = "localhost";
-		$username = "username";
-		$password = "password";
-		$dbname = "myDB";
+		$username = "postgres";
+		$password = "";
+		$dbname = "aninditoizdihardian";
+		$portno = "5432";
+
+		$conn_string = "host=".$servername." port=".$portno." dbname=".$dbname." user=".$username." password=".$password;
+
+		$psqlconn = pg_connect($conn_string);
+		$result = pg_query($psqlconn, 'SET search_path TO tokokeren');
+
+		if (!$result) {
+			die('Failed to set schema:'.$psqlconn->errorMsg());
+		}
+
+		function fillJKForm($elemNama, $elemLama, $elemTarif) {
+			$isFilledArray = array (
+				"isFilledNama" => "1",
+				"isFilledLama" => "1",
+				"isFilledTarif" => "1"
+				);
+			
+
+			if ($elemNama === "") {
+				$isFilledArray["isFilledNama"] = "0";
+			}
+
+			if ($elemLama === "") {
+				$isFilledArray["isFilledLama"] = "0";
+			}
+
+			if ($elemTarif === "") {
+				$isFilledArray["isFilledTarif"] = "0";
+			}
+
+			return $isFilledArray;
+		}
+
+		function validateJKForm($psqlconn, $elemNama, $elemLama, $elemTarif) {
+			$isValidArray = array (
+				"isValidNama" => "1",
+				"isValidLama" => "1",
+				"isValidTarif" => "1"
+			);
+
+			$lamaCheck = is_numeric($elemLama);
+			$tarifCheck = is_numeric($elemTarif);
+
+			if ($lamaCheck === false || $elemLama <= 0) {
+				$isValidArray["isValidLama"] = "0";
+			}
+
+			if ($tarifCheck === false || $elemTarif <= 0) {
+				$isValidArray["isValidTarif"] = "0";
+			}
+
+			$tmp = pg_query($psqlconn, 'SELECT * FROM jasa_kirim AS jk WHERE jk.nama = \''.$elemNama.'\';');
+			$numRow = pg_num_rows($tmp);
+			if ($numRow != 0) {
+				$isValidArray["isValidNama"] = "0";
+			}
+
+			return $isValidArray;
+		}
+
+		function insertNewJK($psqlconn, $elemNama, $elemLama, $elemTarif) {
+			$insertString = 'INSERT INTO jasa_kirim VALUES (\''.$elemNama.'\',\''.$elemLama.'\','.$elemTarif.');';
+			$insertQuery = pg_query($psqlconn, $insertString);
+			return $insertQuery;
+		}
+
+		if ($_SERVER['REQUEST_METHOD'] === "POST") {
+			$newJKnama = $_POST['nama_jk'];
+			$newJKlamakirim = $_POST['lama_jk'];
+			$newJKtarif = $_POST['tarif_jk'];
+			
+			$filledArray = fillJKForm($newJKnama, $newJKlamakirim, $newJKtarif);
+			$validArray = validateJKForm($psqlconn, $newJKnama, $newJKlamakirim, $newJKtarif);
+			$formResults = array_merge($filledArray, $validArray);
+			echo var_dump($formResults);
+
+			if (in_array("0", $formResults)) {
+				echo "Satu atau lebih elemen formulir kosong atau tidak valid!";
+				if ($formResults["isFilledNama"] === "0") {
+					echo "Nama kosong!";
+				} else if ($formResults["isFilledNama"] === "1" && $formResults["isValidNama"] === "0") {
+					echo "Nama sudah ada di daftar jasa kirim! Nama jasa kirim harus unik.";
+				} else {
+					//do nothing
+				}
+
+				if ($formResults["isFilledLama"] === "0") {
+					echo "Lama kosong!";
+				} else if ($formResults["isFilledLama"] === "1" && $formResults["isValidLama"] === "0") {
+					echo "Lama kirim tidak valid! Lama kirim harus berupa angka lebih besar dari 0.";
+				} else {
+					//do nothing
+				}
+
+				if ($formResults["isFilledTarif"] === "0") {
+					echo "Tarif kosong!";
+				} else if ($formResults["isFilledTarif"] === "1" && $formResults["isValidTarif"] === "0") {
+					echo "Tarif tidak valid! Tarif harus berupa angka lebih besar dari 0.";
+				} else {
+					//do nothing
+				}
+			} else if (insertNewJK($psqlconn, $newJKnama, $newJKlamakirim, $newJKtarif)) {
+				echo "Jasa kirim baru berhasil disimpan!";
+			}
+		}
+
+		
+
 	?>
 		<div class="container">
 		<div class="card-panel z-depth-2">
 			<h3 class="center-align teal-text">Form Membuat Jasa Kirim</h3>
-				<form class="col s12" name="jkform" method="POST" onsubmit="checkOrderForm()">
+				<form class="col s12" name="jkform" method="POST">
 				<div class="row">
 					<div class="input-field">
 						<label>Nama</label>
-						<input placeholder="Nama" id="nama_jk" type="text">
+						<input placeholder="Nama" id="nama_jk" name="nama_jk" type="text">
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field">
 						<label>Lama kirim</label>
-						<input placeholder="Lama kirim" id="lama_jk" type="text">
+						<input placeholder="Lama kirim" name="lama_jk" id="lama_jk" type="text">
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field">
 						<label>Tarif</label>
-						<input placeholder="Tarif" id="tarif_jk" type="text">
+						<input placeholder="Tarif" name="tarif_jk" id="tarif_jk" type="text">
 					</div>
 				</div>
 				<div class="row center-align">
 				<button class="btn waves-effect waves-light" id="jkSubmit" type="submit" name="action">Submit
-   					 <i class="material-icons left">send</i>
   				</button>
 				</div>
   				

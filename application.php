@@ -53,7 +53,7 @@
 
    }
 
-   function execute_query(query)
+   function execute_query($query)
    {
        $conn = connectDB();
        $result = pg_query($conn, $query);

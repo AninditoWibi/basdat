@@ -23,13 +23,35 @@
     ?>
     <h2 class="teal-text center-align">Pendaftaran Pengguna</h2>
 	<div class="row" style="width:500px">
-		<form class="col s12">
+	<?php 
+		@session_start();
+		$data = [];
+		$data['email'] = null;
+		$data['nama'] = null;
+		$data['notelp'] = null;
+		$data['address'] = null;
+		$data['datepicker'] = null;
+		if(isset($_SESSION['cache']))
+		$data = $_SESSION['cache'];
+		if(isset($_SESSION['alert'])){
+			$msg = null;
+			if(isset($_SESSION['alert']['passconfirm']))
+				$msg = "Password tidak sama";
+			elseif (isset($_SESSION['alert']['doubledata']))
+				$msg = "Email sudah terdaftar";
+			echo "<div>".$msg."</div>";
+			session_unset('alert');
+			session_unset('cache');
+
+		}
+	?>
+		<form class="col s12" action="registerprocess.php" method="POST">
 			<div class="input-field col s12">
-				<input type="email" id="email" name="email" placeholder="E-mail" autofocus required class="validate">
-                <label for="email" data-error="wrong" data-success="right">E-mail</label>
+				<input type="email" id="email" name="email" placeholder="E-mail" autofocus required class="validate" value="<?=$data['email'] ?>">
+                <label for="email" data-error="wrong" data-success="right" >E-mail</label>
 			</div>
 			<div class="input-field col s12">
-				<input type="password" id="password" name="password" placeholder="Password" pattern=".{6,}" autofocus required class="validate">
+				<input type="password" id="password" name="password" placeholder="Password" pattern=".{6,}" autofocus required class="validate" >
                 <label for="password">Password</label>
 			</div>
 			<div class="input-field col s12">
@@ -37,28 +59,28 @@
                 <label for="password2">Ulangi Password</label>
 			</div>
 			<div class="input-field col s12">
-				<input type="text" id="nama" name="nama" placeholder="Nama Lengkap" autofocus required class="validate">
+				<input type="text" id="nama" name="nama" placeholder="Nama Lengkap" autofocus required class="validate" value="<?=$data['nama'] ?>">
                 <label for="nama">Nama Lengkap</label>
 			</div>
 			<div class="input-field col s12">
-				<select id="gender">
+				<select id="gender" name="gender">
                     <option value"" disabled selected>Pilih salah satu</option>
-					<option value="Laki-Laki">Laki-Laki</option>
-					<option value="Perempuan">Perempuan</option>
+					<option value="L">Laki-Laki</option>
+					<option value="P">Perempuan</option>
 				</select>
                 <label for="gender">Jenis Kelamin</label>
 			</div>
 			<div class="input-field col s12">
-				<input type="number" id="notelp" name="notelp" placeholder="Nomor Telepon" autofocus required pattern=".{20,}" class="validate">
+				<input type="text" maxlength="20" id="notelp" name="notelp" placeholder="Nomor Telepon" autofocus required class="validate" value="<?=$data['notelp'] ?>">
                 <label for="notelp">Nomor Telepon</label>
 			</div>
 			<div class="input-field col s12">
-				<input type="text" id="address" name="address" placeholder="Alamat" autofocus required class="validate">
+				<input type="text" id="address" name="address" placeholder="Alamat" autofocus required class="validate" value="<?=$data['address'] ?>">
                 <label for="address">Alamat</label>
 			</div>
             <div class="input-field col s12">
               Tanggal lahir
-				<input type="text" id="datepicker" name="datepicker" placeholder="" autofocus required class="validate">
+				<input type="text" id="datepicker" name="datepicker" placeholder="" autofocus required class="validate" value="<?=$data['datepicker'] ?>">
                 
 			</div>
 			<input class="btn waves-effect waves-light" type="submit" value="Daftar">

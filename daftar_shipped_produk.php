@@ -1,3 +1,4 @@
+<?php require 'application.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,22 +29,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>S0000001</td>
-                            <td>Sterile Diluent for Allergenic Extract</td>
-                            <td>503</td>
-                            <td>16</td>
-                            <td>16585</td>
-                            <td>265360</td>
-                        </tr>
-                        <tr>
-                            <td>S0000002</td>
-                            <td>Molds, Rusts and Smuts, Pullularia pullulans</td>
-                            <td>341</td>
-                            <td>6</td>
-                            <td>16586</td>
-                            <td>99516</td>
-                        </tr>
+                        <?php
+                            $query = "SELECT KJ.kode_produk, nama, berat, kuantitas, KJ.harga, sub_total
+                                      FROM keranjang_belanja KJ, produk P
+                                      WHERE KJ.kode_produk = P.kode_produk
+                                      LIMIT 10";
+                            $result = execute_query($query);
+
+                            while ($row = pg_fetch_row($result)) {
+                                echo "<tr>";
+                                foreach ($row as $column) {
+                                    echo "<td>".$column."</td>";
+                                }
+                                echo "</tr>";
+                            }
+                        ?>
                     </tbody>
                 </table>
                 <ul class="pagination center-align">
@@ -86,6 +86,6 @@
         </div>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-        <script type="text/javascript" src="src/js/script.js"></script>
+        <script type="text/javascript" src="web/src/js/script.js"></script>
     </body>
 </html>

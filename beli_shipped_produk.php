@@ -1,3 +1,4 @@
+<?php require 'application.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,29 +19,32 @@
             <form class="col s12" action="index.html" method="post">
                 <div class="row">
                     <div class="input-field col s6 push-s3">
-                        <select>
+                        <select id="pilih-kategori">
                             <option value="" disabled selected>Silahkan pilih kategori</option>
-                            <option value="1">K01</option>
-                            <option value="2">K02</option>
-                            <option value="3">K03</option>
+                            <?php
+                            $query = "SELECT nama, kode
+                                      FROM kategori_utama";
+                            $result = execute_query($query);
+
+                            while ($row = pg_fetch_row($result)) {
+                                echo "<option value=\"$row[1]\">$row[0]</option>";
+                            }
+                            ?>
                         </select>
                         <label>Kategori</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6 push-s3">
-                        <select>
+                        <select id="pilih-subkategori">
                             <option value="" disabled selected>Silahkan pilih sub-kategori</option>
-                            <option value="1">SK01</option>
-                            <option value="2">SK02</option>
-                            <option value="3">SK03</option>
                         </select>
-                        <label>Sub Kateori</label>
+                        <label>Sub Katgeori</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col s12 center-align">
-                        <button class="btn waves-effect waves-light btn-small" type="submit" name="action">Filter
+                        <button class="btn waves-effect waves-light btn-small" type="submit" name="filter_produk">Filter
                             <i class="material-icons right">filter_list</i>
                         </button>
                     </div>
@@ -60,66 +64,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>S0000001</td>
-                        <td>Maalox</td>
-                        <td>59900</td>
-                        <td class="center-align">TERSEDIA</td>
-                        <td class="center-align">YA</td>
-                        <td>599794727</td>
-                        <td class="center-align">BEKAS</td>
-                        <td>8800.62</td>
-                        <td>
-                            <button class="btn waves-effect waves-light" type="submit" name="beli">Beli
-                                <i class="material-icons right">shopping_cart</i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>S0000071</td>
-                        <td>Lipitor</td>
-                        <td>789700</td>
-                        <td class="center-align">TERSEDIA</td>
-                        <td class="center-align">YA</td>
-                        <td>354215945</td>
-                        <td class="center-align">BARU</td>
-                        <td>8800.25</td>
-                        <td>
-                            <button class="btn waves-effect waves-light" type="submit" name="beli">Beli
-                                <i class="material-icons right">shopping_cart</i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>S0000175</td>
-                        <td>Piroxicam</td>
-                        <td>99789900</td>
-                        <td class="center-align">TERSEDIA</td>
-                        <td class="center-align">YA</td>
-                        <td>990795664</td>
-                        <td class="center-align">BARU</td>
-                        <td>67888800.2</td>
-                        <td>
-                            <button class="btn waves-effect waves-light" type="submit" name="beli">Beli
-                                <i class="material-icons right">shopping_cart</i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>S0000202</td>
-                        <td>Ranitidine Hydrochloride</td>
-                        <td>889801</td>
-                        <td class="center-align">TERSEDIA</td>
-                        <td class="center-align">YA</td>
-                        <td>184269327</td>
-                        <td class="center-align">BEKAS</td>
-                        <td>77875800.213</td>
-                        <td>
-                            <button class="btn waves-effect waves-light" type="submit" name="beli">Beli
-                                <i class="material-icons right">shopping_cart</i>
-                            </button>
-                        </td>
-                    </tr>
+                    <?php
+                        $query = "SELECT SP.kode_produk, nama, harga, deskripsi, is_asuransi, stok, is_baru, harga_grosir
+                                  FROM shipped_produk SP, produk P
+                                  WHERE SP.kode_produk = P.kode_produk";
+                        $result = execute_query($query);
+
+                        while ($row = pg_fetch_row($result)) {
+                            echo "<tr>";
+                            for ($ii = 0; $ii < 8; $ii++) {
+                                echo "<td>";
+                                if ($ii == 3) {
+                                    if ($row[5] > 0) {
+                                        echo "TERSEDIA";
+                                    } else {
+                                        echo "KOSONG";
+                                    }
+                                } elseif ($row[$ii] == 't') {
+                                    echo "YA";
+                                } elseif ($row[$ii] == 'f') {
+                                    echo "TIDAK";
+                                } else {
+                                    echo $row[$ii];
+                                }
+                                echo "</td>";
+                            }
+                    ?>
+                                <td>
+                                    <form action="index.html" method="post">
+                                        <input type="hidden" name="kode_produk" value="<?php echo $row[0]; ?>">
+                                        <button class="btn waves-effect waves-light" type="submit" name="beli_barang">Beli
+                                            <i class="material-icons right">shopping_cart</i>
+                                        </button>
+                                    </form>
+                                </td>
+                    <?php
+                            echo "</tr>";
+                        }
+                    ?>
                 </tbody>
             </table>
             <ul class="pagination center-align">
@@ -135,5 +117,6 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
         <script type="text/javascript" src="web/src/js/script.js"></script>
+        <script type="text/javascript" src="web/src/js/ajax.js"></script>
     </body>
 </html>

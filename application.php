@@ -26,8 +26,8 @@
           login($_POST['username'], $_POST['password']);
       } elseif($_POST['command'] === 'logout') {
 
-      } elseif ($_POST['command'] === 'addBook') {
-
+      } elseif ($_POST['command'] === 'ganti_subkategori') {
+          ganti_subkategori($_POST['kategori']);
       }
       else if($_POST['command'] === 'borrow'){
 
@@ -83,5 +83,17 @@
        $conn = connectDB();
        $result = pg_query($conn, $query);
        return $result;
+   }
+
+   function ganti_subkategori($kategori_utama)
+   {
+       $query = "SELECT nama, kode
+                 FROM sub_kategori
+                 WHERE kode_kategori = '$kategori_utama'";
+       $result = execute_query($query);
+
+       while ($row = pg_fetch_row($result)) {
+           echo "<option value=\"$row[1]\">$row[0]</option>";
+       }
    }
 ?>

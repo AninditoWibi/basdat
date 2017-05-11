@@ -6,8 +6,8 @@
         Cara pakai:
         1. Semua perintah disini harus melewati method POST
 
-        2. Cara pass value bisa menggunakan tag <input> dengan type none.
-           Contoh: <input type="none" name="password" value="12345"></input>
+        2. Cara pass value bisa menggunakan tag <input> dengan type hidden.
+           Contoh: <input type="hidden" name="password" value="12345"></input>
 
         3. Cara menerima seperti biasa, $_POST['password'].
            Maka $_POST['password'] akan menyimpan nilai 12345
@@ -17,7 +17,7 @@
 
         Contoh lengkap:
         <form method="post">
-        	<input type="none" name="harga_barang" value="100000">
+        	<input type="hidden" name="harga_barang" value="100000">
         	<button type="submit" name="button">Beli</button>
         </form>
    */

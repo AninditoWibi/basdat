@@ -17,8 +17,11 @@
   </script>
 </head>    
 <body>
-
-    <h2 class="teal-text center-align">Daftar</h2>
+    
+    <?php
+    include "navbar.php"
+    ?>
+    <h2 class="teal-text center-align">Pendaftaran Pengguna</h2>
 	<div class="row" style="width:500px">
 		<form class="col s12">
 			<div class="input-field col s12">

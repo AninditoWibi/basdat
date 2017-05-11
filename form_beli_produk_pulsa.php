@@ -8,6 +8,9 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
+        <?php
+    include "navbar.php"
+    ?>
         <div class="container">
             <div class="row">
                 <div class="card-panel z-depth-2 col s10 push-s1">

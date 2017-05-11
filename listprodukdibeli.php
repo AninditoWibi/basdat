@@ -13,53 +13,45 @@
     ?>
         <div class="container-fluid">
             <div class="row">
+                
                 <div class="card-panel z-depth-2 col s10 offset-s1">
                     <div class="center-align">
-                        <h2 class="teal-text">Daftar Transaksi Shipped</h2>
+                        <h2 class="teal-text">Daftar Produk Dibeli</h2>
                     </div>
+                    No Invoice: V000000001
                     <table class="centered highlight">
                         <thead>
                             <tr>
-                                <th>No Invoice</th>
-                                <th>Nama Toko</th>
-                                <th>Tanggal</th>
-                                <th>Status</th>
-                                <th>Total Bayar</th>
-                                <th>Alamat kirim</th>
-                                <th>Biaya Kirim</th>
-                                <th>Nomor Resi</th>
-                                <th>Jasa Kirim</th>
+                                <th>Nama Produk</th>
+                                <th>Berat</th>
+                                <th>Kuantitas</th>
+                                <th>Harga</th>
+                                <th>Sub total</th>
+                                <th>Ulasan</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>V000000001</td>
-                                <td>Cyber Track Inc</td>
-                                <td>2014-04-01</td>
-                                <td>BARANG SUDAH DIBAYAR</td>
-                                <td>79600</td>
-                                <td>707 Harper Circle</td>
-                                <td>8000</td>
-                                <td>OQN6486715906681</td>
-                                <td>JNE YES</td>
+                                <td>Sterile Diluent for Allergenic Extract</td>
+                                <td>244</td>
+                                <td>325</td>
+                                <td>9888500</td>
+                                <td>3213762500</td>
+                                
                                 <td>
-                                    <button class="btn waves-effect waves-light" type="submit" name="beli">Produk
+                                    <button class="btn waves-effect waves-light" type="submit" name="ulas">Ulas
                                         <i class="material-icons left">view_list</i>
                                     </button>
                                 </td>
                             </tr>
                             <tr>
-                                <td>V000000002</td>
-                                <td>Schamberger-Rutherford</td>
-                                <td>2017-02-18</td>
-                                <td>BARANG SUDAH DIBAYAR</td>
-                                <td>99500</td>
-                                <td>5 Petterle Place</td>
-                                <td>15000</td>
-                                <td>QBN7202961661740</td>
-                                <td>JNE REGULER</td>
+                                <td>Maalox</td>
+                                <td>753</td>
+                                <td>766</td>
+                                <td>99985000</td>
+                                <td>76588510000</td>
                                 <td>
-                                    <button class="btn waves-effect waves-light" type="submit" name="beli">Produk
+                                    <button class="btn waves-effect waves-light" type="submit" name="ulas">Ulas
                                         <i class="material-icons left">view_list</i>
                                     </button>
                                 </td>

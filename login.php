@@ -8,7 +8,9 @@
       <link type="text/css" rel="stylesheet" href="web/src/css/materialize.min.css"  media="screen,projection"/>
 </head>
 <body>
-    
+    <?php
+    include "navbar.php"
+    ?>
     <h2 class="teal-text center-align">Log In</h2>
 	<div class="row" style="width: 500px">
 		<form class="col s12">

@@ -8,10 +8,13 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
+        <?php
+    include "navbar.php"
+    ?>
         <div class="container">
             <div class="card-panel z-depth-2">
                 <div class="center-align">
-                    <h2 class="teal-text">Daftar Produk Pulsa</h2>
+                    <h2 class="teal-text">Daftar Produk</h2>
                 </div>
                 <table class="highlight">
                     <thead>

@@ -8,6 +8,9 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
+        <?php
+    include "navbar.php"
+    ?>
         <div class="container">
             <div class="center-align">
                 <h2 class="teal-text">Daftar Produk</h2>

@@ -9,6 +9,9 @@
         <link href="src/css/style.css" rel="stylesheet">
     </head>
     <body>
+        <?php
+    include "navbar.php"
+    ?>
         <div class="container">
             <div class="row">
                 <div class="col s12 m10 push-m1">

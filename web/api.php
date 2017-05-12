@@ -20,7 +20,7 @@
 				$ktgPick = $_POST['ktgPick'];
 				$query = pg_query($psqlconn, 'SELECT * FROM sub_kategori WHERE kode_kategori = \''.$ktgPick.'\';');
 				while ($row = pg_fetch_row($query)) {
-					echo $row[2];
+					echo $row[2].'%'.$row[0];
 					echo "|";
 				}
 			}

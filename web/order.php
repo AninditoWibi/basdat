@@ -98,14 +98,12 @@
 			$validArray = validateJKForm($psqlconn, $newJKnama, $newJKlamakirim, $newJKtarif);
 			$formResults = array_merge($filledArray, $validArray);
 
-			
-
 			if (in_array("0", $formResults)) {
 				echo '<script> Materialize.toast("Satu atau lebih elemen formulir kosong atau tidak valid!", 6400) </script>';
 				if ($formResults["isFilledNama"] === "0") {
 					echo '<script> Materialize.toast("Nama kosong!", 6400) </script>';
 				} else if ($formResults["isFilledNama"] === "1" && $formResults["isValidNama"] === "0") {
-					echo '<script> Materialize.toast("Nama sudah ada di daftar jasa kirim! Nama jasa kirim harus unik.", 6400) </script>';
+					echo '<script> Materialize.toast("Nama sudah ada di daftar jasa kirim!", 6400) </script>';
 				} else {
 					//do nothing
 				}

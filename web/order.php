@@ -97,35 +97,36 @@
 			$filledArray = fillJKForm($newJKnama, $newJKlamakirim, $newJKtarif);
 			$validArray = validateJKForm($psqlconn, $newJKnama, $newJKlamakirim, $newJKtarif);
 			$formResults = array_merge($filledArray, $validArray);
-			echo var_dump($formResults);
+
+			
 
 			if (in_array("0", $formResults)) {
-				echo "Satu atau lebih elemen formulir kosong atau tidak valid!";
+				echo '<script> Materialize.toast("Satu atau lebih elemen formulir kosong atau tidak valid!", 6400) </script>';
 				if ($formResults["isFilledNama"] === "0") {
-					echo "Nama kosong!";
+					echo '<script> Materialize.toast("Nama kosong!", 6400) </script>';
 				} else if ($formResults["isFilledNama"] === "1" && $formResults["isValidNama"] === "0") {
-					echo "Nama sudah ada di daftar jasa kirim! Nama jasa kirim harus unik.";
+					echo '<script> Materialize.toast("Nama sudah ada di daftar jasa kirim! Nama jasa kirim harus unik.", 6400) </script>';
 				} else {
 					//do nothing
 				}
 
 				if ($formResults["isFilledLama"] === "0") {
-					echo "Lama kosong!";
+					echo '<script> Materialize.toast("Lama kirim kosong!", 6400) </script>';
 				} else if ($formResults["isFilledLama"] === "1" && $formResults["isValidLama"] === "0") {
-					echo "Lama kirim tidak valid! Lama kirim harus berupa angka lebih besar dari 0.";
+					echo '<script> Materialize.toast("Lama kirim tidak valid! Lama kirim harus berupa angka lebih besar dari 0.", 6400) </script>';
 				} else {
 					//do nothing
 				}
 
 				if ($formResults["isFilledTarif"] === "0") {
-					echo "Tarif kosong!";
+					echo '<script> Materialize.toast("Tarif kosong!", 6400) </script>';
 				} else if ($formResults["isFilledTarif"] === "1" && $formResults["isValidTarif"] === "0") {
-					echo "Tarif tidak valid! Tarif harus berupa angka lebih besar dari 0.";
+					echo '<script> Materialize.toast("Tarif tidak valid! Tarif harus berupa angka lebih besar dari 0.", 6400) </script>';
 				} else {
 					//do nothing
 				}
 			} else if (insertNewJK($psqlconn, $newJKnama, $newJKlamakirim, $newJKtarif)) {
-				echo "Jasa kirim baru berhasil disimpan!";
+				echo '<script> Materialize.toast("Jasa kirim baru berhasil disimpan!", 6400) </script>';
 			}
 		}
 

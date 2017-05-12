@@ -29,8 +29,8 @@
       } elseif ($_POST['command'] === 'ganti_subkategori') {
           ganti_subkategori($_POST['kategori']);
       }
-      else if($_POST['command'] === 'borrow'){
-
+      else if($_POST['command'] === 'filter_shipped_produk'){
+          filter_shipped_produk($_POST['kategori']);
       }
       else if($_POST['command'] === 'return'){
 
@@ -85,6 +85,9 @@
        return $result;
    }
 
+   /*
+        Mengganti select option dari subkategori dropdown yang sesuai dengan kategori utama
+   */
    function ganti_subkategori($kategori_utama)
    {
        $query = "SELECT nama, kode
@@ -96,4 +99,43 @@
            echo "<option value=\"$row[1]\">$row[0]</option>";
        }
    }
+
+    function filter_shipped_produk($kategori)
+    {
+        $query = "SELECT SP.kode_produk, nama, harga, deskripsi, is_asuransi, stok, is_baru, harga_grosir
+                  FROM shipped_produk SP, produk P
+                  WHERE SP.kode_produk = P.kode_produk AND SP.kategori = '$kategori'";
+        $result = execute_query($query);
+
+        while ($row = pg_fetch_row($result)) {
+            echo "<tr>";
+            for ($ii = 0; $ii < 8; $ii++) {
+                echo "<td>";
+                if ($ii == 3) {
+                    if ($row[5] > 0) {
+                        echo "TERSEDIA";
+                    } else {
+                        echo "KOSONG";
+                    }
+                } elseif ($row[$ii] == 't') {
+                    echo "YA";
+                } elseif ($row[$ii] == 'f') {
+                    echo "TIDAK";
+                } else {
+                    echo $row[$ii];
+                }
+                echo "</td>";
+            }
+            echo '
+            <td>
+                <form action="index.html" method="post">
+                    <input type="hidden" name="kode_produk" value="'.$row[0].'">
+                    <button class="btn waves-effect waves-light" type="submit" name="beli_barang">Beli
+                        <i class="material-icons right">shopping_cart</i>
+                    </button>
+                </form>
+            </td>
+            ';
+        }
+    }
 ?>

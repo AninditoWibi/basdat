@@ -10,3 +10,18 @@ $("#pilih-kategori").on("change",function() {
         $('select').material_select();
     });
 });
+
+$("#filter-produk-button").on("click",function() {
+    var kategori = $("#pilih-subkategori :selected").val();
+    if (kategori === '') {
+        $("#kategori-kosong-alert").modal("open");
+    } else {
+        $.post("application.php", {
+            command: "filter_shipped_produk",
+            kategori: kategori
+        }).done(function(data) {
+            $("#tabel-beli-shipped-produk").html("");
+            $(data).appendTo("#tabel-beli-shipped-produk");
+        });
+    }
+});

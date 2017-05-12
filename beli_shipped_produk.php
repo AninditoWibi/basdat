@@ -13,12 +13,21 @@
     include "navbar.php"
     ?>
         <div class="container">
+            <div id="kategori-kosong-alert" class="modal">
+                <div class="modal-content">
+                    <h4>Kategori tidak ada</h4>
+                    <p>Silahkan pilih kategori untuk me-filter produk</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+                </div>
+            </div>
             <div class="center-align">
                 <h2 class="teal-text">Daftar Produk</h2>
             </div>
-            <form class="col s12" action="index.html" method="post">
+            <div class="card-panel z-depth-2 col s12">
                 <div class="row">
-                    <div class="input-field col s6 push-s3">
+                    <div class="input-field col s5">
                         <select id="pilih-kategori">
                             <option value="" disabled selected>Silahkan pilih kategori</option>
                             <?php
@@ -33,23 +42,19 @@
                         </select>
                         <label>Kategori</label>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6 push-s3">
+                    <div class="input-field col s5">
                         <select id="pilih-subkategori">
                             <option value="" disabled selected>Silahkan pilih sub-kategori</option>
                         </select>
                         <label>Sub Katgeori</label>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s12 center-align">
-                        <button class="btn waves-effect waves-light btn-small" type="submit" name="filter_produk">Filter
+                    <div class="col s2 center-align">
+                        <button class="btn waves-effect waves-light btn-large" id="filter-produk-button" type="button">Filter
                             <i class="material-icons right">filter_list</i>
                         </button>
                     </div>
                 </div>
-            </form>
+            </div>
             <table class="highlight">
                 <thead>
                     <tr>
@@ -63,7 +68,7 @@
                         <th>Harga Grosir</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tabel-beli-shipped-produk">
                     <?php
                         $query = "SELECT SP.kode_produk, nama, harga, deskripsi, is_asuransi, stok, is_baru, harga_grosir
                                   FROM shipped_produk SP, produk P

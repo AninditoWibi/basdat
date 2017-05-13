@@ -16,13 +16,13 @@
     if(isset($_SESSION['login'])){?> 
       <h2 class="teal-text center-align">Menu Navigasi Pelanggan</h2>
       <div class="center-align">
-        <a href="#" class="btn waves-effect waves-light btn-large">Membeli Produk
+        <a href="beli_produk/index.php" class="btn waves-effect waves-light btn-large">Membeli Produk
             <i class="material-icons right">send</i>
         </a>
-        <a href="#" class="btn waves-effect waves-light btn-large">Melihat Transaksi
+        <a href="" class="btn waves-effect waves-light btn-large">Melihat Transaksi
             <i class="material-icons right">send</i>
         </a>
-        <a href="#" class="btn waves-effect waves-light btn-large">Melihat Keranjang Belanja
+        <a href="beli_produk/daftar_shipped_produk.php" class="btn waves-effect waves-light btn-large">Melihat Keranjang Belanja
             <i class="material-icons right">send</i>
         </a>
         <a href="#" class="btn waves-effect waves-light btn-large">Membuka Toko

@@ -26,7 +26,7 @@
 				$_SESSION['login'] = $data['email'];
 				$_SESSION['penjual'] = 'f';
 				
-				header('Refresh: 3; URL=registersuccess.php');
+				header('Location: registersuccess.php');
 			  } else {
 			  	$_SESSION['alert']['doubledata'] = true;
 			  	$_SESSION['cache'] = $data;

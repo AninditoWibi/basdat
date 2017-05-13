@@ -16,7 +16,7 @@
                     <div class="card-panel z-depth-2">
                         <div class="row">
                             <div class="center-align">
-                                <h3 class="teal-text">Silahkan pilih produk yang ingin anda beli!</h3>
+                                <h4 class="teal-text">Silahkan pilih produk yang ingin anda beli!</h4>
                             </div>
                             <div class="divider"></div>
                         </div>

@@ -14,50 +14,42 @@
     include "../navbar.php"
     ?>
         <div class="container">
-            <div id="nama-toko-kosong-alert" class="modal">
-                <div class="modal-content center-align">
-                    <h4>Nama toko belum dipilih!</h4>
-                    <div class="divider"></div>
-                    <p>Silahkan pilih toko yang tersedia dari droopdown list</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
-                </div>
-            </div>
             <div class="row">
                 <div class="col s12 m10 push-m1">
                     <div class="card-panel z-depth-2">
-                        <div class="center-align">
-                            <h3 class="teal-text">Form Pilih Toko</h3>
+                        <div class="row">
+                            <div class="center-align">
+                                <h3 class="teal-text">Silahkan isi detail produk</h3>
+                            </div>
+                            <div class="divider"></div>
                         </div>
                         <div class="container">
                             <div class="row">
-                                <div class="col s12">
+                                <form class="col s12" action="beli_shipped_produk.php" method="post">
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <select id="pilih-toko">
-                                                <option value="" disabled selected>Silahkan pilih toko</option>
-                                                <?php
-                                                    $query = "SELECT nama
-                                                              FROM toko";
-                                                    $result = execute_query($query);
-
-                                                    while ($row = pg_fetch_row($result)) {
-                                                        echo "<option value='$row[0]'>$row[0]</option>";
-                                                    }
-                                                ?>
-                                            </select>
-                                            <label>Nama Toko</label>
+                                            <input placeholder="Berat barang" id="berat_barang" type="text" class="validate" name="berat_barang" required>
+                                            <label for="beli_barang">Berat Barang</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input placeholder="Kuantitas" id="kuantitas_barang" type="text" class="validate" name="kuantitas_barang" required>
+                                            <label for="kuantitas_barang">Kuantitas</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col s12 center-align">
-                                            <button id="pilih-toko-button" class="btn waves-effect waves-light btn-large" type="button">Submit
+                                            <input type="hidden" name="kode_produk" value="<?php echo $_POST['kode_produk']; ?>">
+                                            <input type="hidden" name="harga_produk" value="<?php echo $_POST['harga_produk']; ?>">
+                                            <input type="hidden" name="nama_toko" value="<?php echo $_POST['nama_toko']; ?>">
+                                            <input type="hidden" name="command" value="beli_barang">
+                                            <button class="btn waves-effect waves-light btn-large" type="submit">Submit
                                                 <i class="material-icons right">send</i>
                                             </button>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

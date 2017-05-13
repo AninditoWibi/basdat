@@ -19,7 +19,7 @@ $("#filter-produk-button").on("click",function() {
     if (kategori === '') {
         $("#kategori-kosong-alert").modal("open");
     } else {
-        if (kategori_utama === 'Semua Kategori') {
+        if (kategori_utama === 'Semua Kategori' && kategori === 'Semua Kategori') {
             kategori = kategori_utama;
         }
         $.post("../application.php", {

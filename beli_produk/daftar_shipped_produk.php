@@ -10,7 +10,7 @@
     </head>
     <body>
         <?php
-    include "navbar.php"
+    include "../navbar.php"
     ?>
         <div class="container">
             <div class="card-panel z-depth-2">
@@ -30,10 +30,10 @@
                     </thead>
                     <tbody>
                         <?php
+                            $pembeli = $_SESSION['login'];
                             $query = "SELECT KJ.kode_produk, nama, berat, kuantitas, KJ.harga, sub_total
                                       FROM keranjang_belanja KJ, produk P
-                                      WHERE KJ.kode_produk = P.kode_produk
-                                      LIMIT 10";
+                                      WHERE KJ.kode_produk = P.kode_produk AND pembeli = '$pembeli'";
                             $result = execute_query($query);
 
                             while ($row = pg_fetch_row($result)) {
@@ -53,26 +53,26 @@
                 </ul>
                 <div class="row">
                     <div class="input-field col s6">
-                        <textarea id="alamat_kirim" class="materialize-textarea"></textarea>
-                        <label for="alamat_kirim">Alamat kirim</label>
+                        <select id="pilih-jasa-kirim">
+                            <?php
+                            $nama_toko = $_SESSION['nama_toko'];
+                            $query = "SELECT nama
+                                      FROM jasa_kirim, toko_jasa_kirim
+                                      WHERE jasa_kirim = nama AND nama_toko = '$nama_toko'";
+                            $result = execute_query($query);
+
+                            while ($row = pg_fetch_row($result)) {
+                                echo "<option value=\"$row[0]\">$row[0]</option>";
+                            }
+                            ?>
+                        </select>
+                        <label>Jasa Kirim</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <select>
-                            <option value="" disabled selected>Silahkan pilih jasa kirim</option>
-                            <option value="1">JNE REGULER</option>
-                            <option value="2">JNE YES</option>
-                            <option value="3">JNE OKE</option>
-                            <option value="3">TIKI REGULER</option>
-                            <option value="3">POS PAKET BIASA</option>
-                            <option value="3">POS PAKET KILAT</option>
-                            <option value="3">WAHANA</option>
-                            <option value="3">J&T EXPRESS</option>
-                            <option value="3">PAHALA</option>
-                            <option value="3">LION PARCEL</option>
-                        </select>
-                        <label>Jasa Kirim</label>
+                        <textarea id="alamat_kirim" class="materialize-textarea"></textarea>
+                        <label for="alamat_kirim">Alamat kirim</label>
                     </div>
                 </div>
                 <div class="row">

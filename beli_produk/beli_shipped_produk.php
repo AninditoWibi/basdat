@@ -99,9 +99,11 @@
                             }
                     ?>
                                 <td>
-                                    <form action="index.html" method="post">
+                                    <form action="form_beli_shipped_produk.php" method="post">
                                         <input type="hidden" name="kode_produk" value="<?php echo $row[0]; ?>">
-                                        <button class="btn waves-effect waves-light" type="submit" name="beli_barang">Beli
+                                        <input type="hidden" name="harga_produk" value="<?php echo $row[2]; ?>">
+                                        <input type="hidden" name="nama_toko" value="<?php echo $nama_toko; ?>">
+                                        <button class="btn waves-effect waves-light" type="submit">Beli
                                             <i class="material-icons right">shopping_cart</i>
                                         </button>
                                     </form>
@@ -115,10 +117,6 @@
             <ul class="pagination center-align">
                 <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
                 <li class="active"><a href="#!">1</a></li>
-                <li class="waves-effect"><a href="#!">2</a></li>
-                <li class="waves-effect"><a href="#!">3</a></li>
-                <li class="waves-effect"><a href="#!">4</a></li>
-                <li class="waves-effect"><a href="#!">5</a></li>
                 <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
             </ul>
         </div>

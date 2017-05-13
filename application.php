@@ -22,22 +22,28 @@
         </form>
    */
    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      if($_POST['command'] === 'login') {
-          login($_POST['username'], $_POST['password']);
-      } elseif($_POST['command'] === 'logout') {
+      if (isset($_POST['command'])) {
+          if($_POST['command'] === 'login') {
+              login($_POST['username'], $_POST['password']);
+          } elseif($_POST['command'] === 'logout') {
 
-      } elseif ($_POST['command'] === 'ganti_subkategori') {
-          ganti_subkategori($_POST['kategori']);
-      }
-      else if($_POST['command'] === 'filter_shipped_produk') {
-          filter_shipped_produk($_POST['kategori'], $_POST['nama_toko']);
-      }
-      else if($_POST['command'] === 'pilih_toko') {
-          if (!isset($_SESSION['nama_toko'])) {
-              $_SESSION['nama_toko'] = $_POST['nama_toko'];
+          } elseif ($_POST['command'] === 'ganti_subkategori') {
+              ganti_subkategori($_POST['kategori']);
           }
-      }
-      else if($_POST['command'] === 'review'){
+          else if($_POST['command'] === 'filter_shipped_produk') {
+              filter_shipped_produk($_POST['kategori'], $_POST['nama_toko']);
+          }
+          else if($_POST['command'] === 'pilih_toko') {
+              if (!isset($_SESSION['nama_toko'])) {
+                  $_SESSION['nama_toko'] = $_POST['nama_toko'];
+              }
+          }
+          else if($_POST['command'] === 'beli_barang') {
+              beli_barang($_POST['kode_produk'],
+              $_POST['harga_produk'],
+              $_POST['berat_barang'],
+              $_POST['kuantitas_barang']);
+          }
       }
    }
 
@@ -139,8 +145,9 @@
             }
             echo '
             <td>
-                <form action="index.html" method="post">
+                <form action="beli_shipped_produk.php" method="post">
                     <input type="hidden" name="kode_produk" value="'.$row[0].'">
+                    <input type="hidden" name="command" value="beli_barang">
                     <button class="btn waves-effect waves-light" type="submit" name="beli_barang">Beli
                         <i class="material-icons right">shopping_cart</i>
                     </button>
@@ -148,5 +155,20 @@
             </td>
             ';
         }
+    }
+
+    function beli_barang($kode_produk, $harga, $berat, $kuantitas)
+    {
+        $sub_total = $harga * $berat;
+        $email = $_SESSION['login'];
+
+        $query = "INSERT INTO keranjang_belanja
+                  VALUES('$email',
+                         '$kode_produk',
+                         '$berat',
+                         '$kuantitas',
+                         '$harga',
+                         '$sub_total')";
+        execute_query($query);
     }
 ?>

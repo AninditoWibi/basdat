@@ -95,9 +95,6 @@
 			$getLastID = $getLastRow[0] + 1;
 
 			$insertString1 = 'INSERT INTO promo VALUES (\''.$getLastID.'\',\''.$elemPS.'\',\''.$elemPE.'\',\''.$elemDS.'\',\''.$elemKP.'\');';
-
-			echo $insertString1;
-
 			$insertQuery1 = pg_query($psqlconn, $insertString1);
 
 			return $insertQuery1;

@@ -2,7 +2,7 @@
 $("#pilih-kategori").on("change",function() {
     var kategori_utama = $("#pilih-kategori :selected").val();
 
-    $.post("application.php", {
+    $.post("../application.php", {
         command: "ganti_subkategori",
         kategori: kategori_utama
     }, function(data) {
@@ -22,7 +22,7 @@ $("#filter-produk-button").on("click",function() {
         if (kategori_utama === 'Semua Kategori') {
             kategori = kategori_utama;
         }
-        $.post("application.php", {
+        $.post("../application.php", {
             command: "filter_shipped_produk",
             kategori: kategori,
             nama_toko: nama_toko
@@ -33,7 +33,15 @@ $("#filter-produk-button").on("click",function() {
     }
 });
 
-$("#pilih-toko").on("change",function() {
-    var nama_toko = $("#pilih-toko :selected").text();
-    $("#toko-dipilih").attr("value", nama_toko)
+$("#pilih-toko-button").click(function() {
+    var nama_toko = $("#pilih-toko :selected").val();
+
+    if (nama_toko === '') {
+        $("#nama-toko-kosong-alert").modal("open");
+    } else {
+        $.post("../application.php", {
+            command: "pilih_toko",
+            nama_toko: nama_toko
+        }, window.location = "beli_shipped_produk.php");
+    }
 });

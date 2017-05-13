@@ -82,8 +82,6 @@
 			$parsedPS = strtotime($elemPS);
 			$parsedPE = strtotime($elemPE);
 
-			echo $parsedPS.'<br>'.$parsedPE;
-
 			if ($elemPS > $elemPE) {
 				$isFilledArray["isValidDate"] = "0";
 			}
@@ -92,8 +90,17 @@
 		}
 
 		function insertNewPR($psqlconn, $elemDS, $elemKP, $elemPS, $elemPE, $elemKU, $elemSK) {
-			$insertString1 = 'INSERT INTO promo VALUES (\''.$elemNama.'\',\''.$elemLama.'\','.$elemTarif.');';
-			$insertQuery1 = pg_query($psqlconn, $insertString);
+			$getQuery = pg_query($psqlconn, 'SELECT * FROM promo ORDER BY ID DESC LIMIT 1');
+			$getLastRow = pg_fetch_row($getQuery);
+			$getLastID = $getLastRow[0] + 1;
+
+			$insertString1 = 'INSERT INTO promo VALUES (\''.$getLastID.'\',\''.$elemPS.'\',\''.$elemPE.'\',\''.$elemDS.'\',\''.$elemKP.'\');';
+
+			echo $insertString1;
+
+			$insertQuery1 = pg_query($psqlconn, $insertString1);
+
+			return $insertQuery1;
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -143,8 +150,8 @@
 				}
 
 				
-			} else {
-				echo '<script> Materialize.toast("Jasa kirim baru berhasil disimpan!", 6400) </script>';
+			} else if (insertNewPR($psqlconn, $newPRdsc, $newPRcod, $newPRstr, $newPRend, $newPRktg, $newPRskt)) {
+				echo '<script> Materialize.toast("Promo baru berhasil disimpan!", 6400) </script>';
 			}
 		}
 	?>

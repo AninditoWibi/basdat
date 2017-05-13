@@ -43,10 +43,10 @@
         <a href="addkategori.php" class="btn waves-effect waves-light btn-large">Membuat Kategori dan Subkategori
             <i class="material-icons right">send</i>
         </a>
-        <a href="#" class="btn waves-effect waves-light btn-large">Membuat Jasa Kirim
+        <a href="web/order.php" class="btn waves-effect waves-light btn-large">Membuat Jasa Kirim
             <i class="material-icons right">send</i>
         </a>
-        <a href="#" class="btn waves-effect waves-light btn-large">Membuat Promo
+        <a href="web/promo.php" class="btn waves-effect waves-light btn-large">Membuat Promo
             <i class="material-icons right">send</i>
         </a>
        

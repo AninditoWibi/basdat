@@ -9,7 +9,14 @@
 </head>
 <body>
     <?php
-    include "navbar.php"
+    @session_start();
+    include "navbar.php";
+    $msg = "";
+    if(isset($_SESSION['wrong'])){
+      $msg = "Email atau Password salah";
+      echo "<div>".$msg."</div>";
+      session_unset('wrong');
+    }
     ?>
 	<div class="container">
 		<div class="row">
@@ -19,7 +26,7 @@
 				</div>
 				<div class="container">
 					<div class="row">
-						<form class="col s12">
+						<form class="col s12" action="loginprocess.php" method="POST">
 							<div class="row">
 								<div class="input-field col s12">
 									<input type="email" id="email" name="email" placeholder="E-mail" autofocus required class="validate">
@@ -33,11 +40,7 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="input-field col s12 center-align">
-									<button class="btn waves-effect waves-light btn-large" type="submit" name="action">Submit
-                                        <i class="material-icons right">send</i>
-                                    </button>
-								</div>
+								<input class="btn waves-effect waves-light" type="submit" value="Submit">
 							</div>
 						</form>
 					</div>

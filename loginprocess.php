@@ -20,11 +20,12 @@
 		  			header("Location: index.php");
 		  		}
 			} else {
-				$_SESSION['wrong'] = "Email atau Password Salah";
-				header("Location: login.php");
+				$_SESSION['wrong'] = true;
+				//header("Location: login.php");
 			}
 			
 		} else {
+			$_SESSION['wrong'] = true;
 			header("Location: index.php");
 		}
 	}

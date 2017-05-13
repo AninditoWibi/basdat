@@ -25,7 +25,8 @@
 				$insert2 = pg_query($psql_conn, $value2);
 				$_SESSION['login'] = $data['email'];
 				$_SESSION['penjual'] = 'f';
-				header("Location: registersuccess.php");
+				
+				header('Refresh: 3; URL=registersuccess.php');
 			  } else {
 			  	$_SESSION['alert']['doubledata'] = true;
 			  	$_SESSION['cache'] = $data;

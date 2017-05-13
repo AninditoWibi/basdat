@@ -30,6 +30,7 @@
                     <div class="input-field col s5">
                         <select id="pilih-kategori">
                             <option value="" disabled selected>Silahkan pilih kategori</option>
+                            <option value="Semua Kategori">Semua Kategori</option>
                             <?php
                             $query = "SELECT nama, kode
                                       FROM kategori_utama";
@@ -49,6 +50,7 @@
                         <label>Sub Katgeori</label>
                     </div>
                     <div class="col s2 center-align">
+                        <input id="nama-toko" type="hidden" value="<?php echo $nama_toko;?>">
                         <button class="btn waves-effect waves-light btn-large" id="filter-produk-button" type="button">Filter
                             <i class="material-icons right">filter_list</i>
                         </button>
@@ -72,7 +74,7 @@
                     <?php
                         $query = "SELECT SP.kode_produk, nama, harga, deskripsi, is_asuransi, stok, is_baru, harga_grosir
                                   FROM shipped_produk SP, produk P
-                                  WHERE SP.kode_produk = P.kode_produk";
+                                  WHERE SP.kode_produk = P.kode_produk AND nama_toko = '$nama_toko'";
                         $result = execute_query($query);
 
                         while ($row = pg_fetch_row($result)) {

@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Buat Promo Baru</title>
-		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+		<script type="text/javascript" src="src/js/jquery-3.2.1.min.js"></script>
+		<script src="src/js/materialize.min.js"></script>
 		<script src="src/js/script.js"></script>
 		<script src="src/js/ajax.js"></script>
 		 <!--Import Google Icon Font-->
@@ -19,9 +19,134 @@
 	<?php
 		// lakukan integrasi sql via php
 		$servername = "localhost";
-		$username = "username";
-		$password = "password";
-		$dbname = "myDB";
+		$username = "postgres";
+		$password = "";
+		$dbname = "aninditoizdihardian";
+		$portno = "5432";
+
+		$conn_string = "host=".$servername." port=".$portno." dbname=".$dbname." user=".$username." password=".$password;
+
+		$psqlconn = pg_connect($conn_string);
+		$result = pg_query($psqlconn, 'SET search_path TO tokokeren');
+
+		if (!$result) {
+			die('Failed to set schema:'.$psqlconn->errorMsg());
+		}
+
+		$tabelKtg = pg_query($psqlconn, 'SELECT * FROM kategori_utama');
+		$tabelSktg = pg_query($psqlconn, 'SELECT * FROM sub_kategori');
+
+		function fillPRForm($elemDS, $elemKP, $elemPS, $elemPE, $elemKU, $elemSK) {
+			$isFilledArray = array (
+				"isFilledDesc" => "1",
+				"isFilledKode" => "1",
+				"isFilledAwal" => "1",
+				"isFilledAkhir" => "1",
+				"isFilledKat" => "1",
+				"isFilledSKat" => "1"
+				);
+			
+
+			if ($elemDS === "") {
+				$isFilledArray["isFilledDesc"] = "0";
+			}
+
+			if ($elemKP === "") {
+				$isFilledArray["isFilledKode"] = "0";
+			}
+
+			if ($elemPS === "") {
+				$isFilledArray["isFilledAwal"] = "0";
+			}
+
+			if ($elemPE === "") {
+				$isFilledArray["isFilledAkhir"] = "0";
+			}
+
+			if ($elemKU === "") {
+				$isFilledArray["isFilledKat"] = "0";
+			}
+
+			if ($elemSK === "") {
+				$isFilledArray["isFilledSKat"] = "0";
+			}
+
+			return $isFilledArray;
+		}
+
+		function validatePRForm($elemPS, $elemPE) {
+			$isValidArray = array (
+				"isValidDate" => "1"
+			);
+
+			$parsedPS = strtotime($elemPS);
+			$parsedPE = strtotime($elemPE);
+
+			echo $parsedPS.'<br>'.$parsedPE;
+
+			if ($elemPS > $elemPE) {
+				$isFilledArray["isValidDate"] = "0";
+			}
+
+			return $isValidArray;
+		}
+
+		function insertNewPR($psqlconn, $elemDS, $elemKP, $elemPS, $elemPE, $elemKU, $elemSK) {
+			$insertString1 = 'INSERT INTO promo VALUES (\''.$elemNama.'\',\''.$elemLama.'\','.$elemTarif.');';
+			$insertQuery1 = pg_query($psqlconn, $insertString);
+		}
+
+		if ($_SERVER['REQUEST_METHOD'] === "POST") {
+			$newPRdsc = $_POST['dsc'];
+			$newPRcod = $_POST['cod'];
+			$newPRstr = $_POST['str'];
+			$newPRend = $_POST['end'];
+			$newPRktg = $_POST['ktg'];
+			$newPRskt = $_POST['skt'];
+			
+			$filledArray = fillPRForm($newPRdsc, $newPRcod, $newPRstr, $newPRend, $newPRktg, $newPRskt);
+			$validArray = validatePRForm($newPRstr, $newPRend);
+			$formResults = array_merge($filledArray, $validArray);
+
+			if (in_array("0", $formResults)) {
+				echo '<script> Materialize.toast("Satu atau lebih elemen formulir kosong atau tidak valid!", 6400) </script>';
+				if ($formResults["isFilledDesc"] === "0") {
+					echo '<script> Materialize.toast("Deskripsi kosong!", 6400) </script>';
+				}
+
+				if ($formResults["isFilledKode"] === "0") {
+					echo '<script> Materialize.toast("Kode promo kosong!", 6400) </script>';
+				}
+
+				if ($formResults["isFilledAwal"] === "0") {
+					echo '<script> Materialize.toast("Periode awal kosong!", 6400) </script>';
+				}
+				if ($formResults["isFilledAkhir"] === "0") {
+					echo '<script> Materialize.toast("Periode akhir kosong!", 6400) </script>';
+				} 
+
+				if ($formResults["isFilledAwal"] === "1" && $formResults["isFilledAkhir"] === "1" && $formResults["isValidDate"] === "0") {
+					echo '<script> Materialize.toast("Tanggal periode tidak valid! Tanggal periode akhir tidak boleh lebih dari tanggal periode akhir.", 6400) </script>';
+				} 
+
+				//if ada yang iseng...
+				if ($formResults["isFilledAwal"] === "0" && $formResults["isFilledAkhir"] === "0" && $formResults["isValidDate"] === "1") {
+					echo '<script> Materialize.toast("Kok bisa?", 6400) </script>';
+				}
+
+				if ($formResults["isFilledKat"] === "0") {
+					echo '<script> Materialize.toast("Kategori kosong!", 6400) </script>';
+				}
+
+				if ($formResults["isFilledSKat"] === "0" || $formResults["isFilledSKat"] === "") {
+					echo '<script> Materialize.toast("Subkategori kosong!", 6400) </script>';
+				}
+
+				
+			} else {
+				echo '<script> Materialize.toast("Jasa kirim baru berhasil disimpan!", 6400) </script>';
+			}
+		}
 	?>
 	<div class="container">
 	<div class="card-panel z-depth-2">
@@ -30,46 +155,46 @@
 			<div class="row">
 				<div class="input-field col s6">
 					<label>Deskripsi</label>
-					<input placeholder="Deskripsi" id="desk_promo" type="text">
+					<input placeholder="Deskripsi" name="dsc" id="desk_promo" type="text">
 				</div>
 				<div class="input-field col s6">
 					<label>Kode promo</label>
-					<input placeholder="Kode promo" id="kode_promo" type="text">
+					<input placeholder="Kode promo" name="cod" id="kode_promo" type="text">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col s6">
 					<label>Periode awal</label>
-					<input id="per_awal" placeholder="Klik untuk membuka kalendar" type="date" class="datepicker">
+					<input name="str" id="per_awal" placeholder="Klik untuk membuka kalendar" type="date" class="datepicker">
 				</div>
 				<div class="col s6">
 					<label>Periode akhir</label>
-					<input id="per_akhir" placeholder="Klik untuk membuka kalendar" type="date" class="datepicker">
+					<input name="end" id="per_akhir" placeholder="Klik untuk membuka kalendar" type="date" class="datepicker">
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s6">
-					<select>
-						<option value="" disabled selected></option>
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
+					<select name="ktg" id="prselector1">
+					<option selected value=""></option>
+					<?php
+						while ($ktgRow = pg_fetch_row($tabelKtg)) {
+					?>
+						<option value="<?php echo $ktgRow[0]; ?>"><?php echo $ktgRow[1]; ?></option>
+					<?php
+						}
+					?>
 					</select>
 					<label>Kategori</label>
 				</div>
 				<div class="input-field col s6">
-					<select>
-						<option value="" disabled selected></option>
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
+					<select name="skt" id="prselector2">
+						<option value=""></option>
 					</select>
 					<label>Subkategori</label>
 				</div>
 			</div>
 			<div class="row center-align">
 				<button class="btn waves-effect waves-light" id="promoSubmit" type="submit" name="action">Submit
-   					 <i class="material-icons left">send</i>
   				</button>
 			</div>
 		</form>

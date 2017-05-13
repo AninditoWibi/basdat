@@ -29,11 +29,13 @@
       } elseif ($_POST['command'] === 'ganti_subkategori') {
           ganti_subkategori($_POST['kategori']);
       }
-      else if($_POST['command'] === 'filter_shipped_produk'){
+      else if($_POST['command'] === 'filter_shipped_produk') {
           filter_shipped_produk($_POST['kategori'], $_POST['nama_toko']);
       }
-      else if($_POST['command'] === 'pilih_toko'){
-          $nama_toko = $_POST['nama_toko'];
+      else if($_POST['command'] === 'pilih_toko') {
+          if (!isset($_SESSION['nama_toko'])) {
+              $_SESSION['nama_toko'] = $_POST['nama_toko'];
+          }
       }
       else if($_POST['command'] === 'review'){
       }

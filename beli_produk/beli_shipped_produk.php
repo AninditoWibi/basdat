@@ -1,16 +1,16 @@
-<?php require 'application.php'; ?>
+<?php require '../application.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Beli Produk</title>
+        <title>Beli Barang</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
         <?php
-    include "navbar.php"
+    include "../navbar.php"
     ?>
         <div class="container">
             <div id="kategori-kosong-alert" class="modal">
@@ -32,6 +32,7 @@
                             <option value="" disabled selected>Silahkan pilih kategori</option>
                             <option value="Semua Kategori">Semua Kategori</option>
                             <?php
+                            $nama_toko = $_SESSION['nama_toko'];
                             $query = "SELECT nama, kode
                                       FROM kategori_utama";
                             $result = execute_query($query);
@@ -123,7 +124,7 @@
         </div>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-        <script type="text/javascript" src="web/src/js/script.js"></script>
-        <script type="text/javascript" src="web/src/js/ajax.js"></script>
+        <script type="text/javascript" src="../web/src/js/script.js"></script>
+        <script type="text/javascript" src="../web/src/js/ajax.js"></script>
     </body>
 </html>

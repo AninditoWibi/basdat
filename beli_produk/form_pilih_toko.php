@@ -1,4 +1,4 @@
-<?php require 'application.php'; ?>
+<?php require '../application.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,11 +7,11 @@
         <title>Pilih Toko</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="src/css/style.css" rel="stylesheet">
+        <link href="../src/css/style.css" rel="stylesheet">
     </head>
     <body>
         <?php
-    include "navbar.php"
+    include "../navbar.php"
     ?>
         <div class="container">
             <div id="nama-toko-kosong-alert" class="modal">
@@ -31,7 +31,7 @@
                         </div>
                         <div class="container">
                             <div class="row">
-                                <form class="col s12" action="beli_shipped_produk.php" method="post">
+                                <div class="col s12">
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <select id="pilih-toko">
@@ -51,14 +51,12 @@
                                     </div>
                                     <div class="row">
                                         <div class="col s12 center-align">
-                                            <input id="toko-dipilih" type="hidden" name="nama_toko" value="">
-                                            <input type="hidden" name="command" value="pilih_toko">
-                                            <button id="pilih-toko-button" class="btn waves-effect waves-light btn-large" type="submit">Submit
+                                            <button id="pilih-toko-button" class="btn waves-effect waves-light btn-large" type="button">Submit
                                                 <i class="material-icons right">send</i>
                                             </button>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -67,7 +65,7 @@
         </div>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-        <script type="text/javascript" src="web/src/js/script.js"></script>
-        <script type="text/javascript" src="web/src/js/ajax.js"></script>
+        <script type="text/javascript" src="../web/src/js/script.js"></script>
+        <script type="text/javascript" src="../web/src/js/ajax.js"></script>
     </body>
 </html>

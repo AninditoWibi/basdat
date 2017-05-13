@@ -39,7 +39,7 @@ $(document).ready(function() {
 	//inisialisasi dropdown MCSS
 	$('select').material_select();
 
-	$("#kategori-kosong-alert").modal();
+	$(".modal").modal();
 
   	$('.datepicker').pickadate({
     	selectMonths: true, // Creates a dropdown to control month

@@ -39,6 +39,8 @@
 				$msg = "Password tidak sama";
 			elseif (isset($_SESSION['alert']['doubledata']))
 				$msg = "Email sudah terdaftar";
+			elseif (isset($_SESSION['alert']['regexfail']))
+				$msg = "Nomor Telepon salah. Isi dengan angka";
 			echo "<div>".$msg."</div>";
 			session_unset('alert');
 			session_unset('cache');
@@ -64,7 +66,6 @@
 			</div>
 			<div class="input-field col s12">
 				<select id="gender" name="gender">
-                    <option value"" disabled selected>Pilih salah satu</option>
 					<option value="L">Laki-Laki</option>
 					<option value="P">Perempuan</option>
 				</select>

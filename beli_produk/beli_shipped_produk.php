@@ -1,16 +1,16 @@
-<?php require 'application.php'; ?>
+<?php require '../application.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Beli Produk</title>
+        <title>Beli Barang</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
         <?php
-    include "navbar.php"
+    include "../navbar.php"
     ?>
         <div class="container">
             <div id="kategori-kosong-alert" class="modal">
@@ -30,7 +30,9 @@
                     <div class="input-field col s5">
                         <select id="pilih-kategori">
                             <option value="" disabled selected>Silahkan pilih kategori</option>
+                            <option value="Semua Kategori">Semua Kategori</option>
                             <?php
+                            $nama_toko = $_SESSION['nama_toko'];
                             $query = "SELECT nama, kode
                                       FROM kategori_utama";
                             $result = execute_query($query);
@@ -49,6 +51,7 @@
                         <label>Sub Katgeori</label>
                     </div>
                     <div class="col s2 center-align">
+                        <input id="nama-toko" type="hidden" value="<?php echo $nama_toko;?>">
                         <button class="btn waves-effect waves-light btn-large" id="filter-produk-button" type="button">Filter
                             <i class="material-icons right">filter_list</i>
                         </button>
@@ -72,7 +75,7 @@
                     <?php
                         $query = "SELECT SP.kode_produk, nama, harga, deskripsi, is_asuransi, stok, is_baru, harga_grosir
                                   FROM shipped_produk SP, produk P
-                                  WHERE SP.kode_produk = P.kode_produk";
+                                  WHERE SP.kode_produk = P.kode_produk AND nama_toko = '$nama_toko'";
                         $result = execute_query($query);
 
                         while ($row = pg_fetch_row($result)) {
@@ -121,7 +124,7 @@
         </div>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-        <script type="text/javascript" src="web/src/js/script.js"></script>
-        <script type="text/javascript" src="web/src/js/ajax.js"></script>
+        <script type="text/javascript" src="../web/src/js/script.js"></script>
+        <script type="text/javascript" src="../web/src/js/ajax.js"></script>
     </body>
 </html>

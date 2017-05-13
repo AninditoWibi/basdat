@@ -29,11 +29,13 @@
       } elseif ($_POST['command'] === 'ganti_subkategori') {
           ganti_subkategori($_POST['kategori']);
       }
-      else if($_POST['command'] === 'filter_shipped_produk'){
-          filter_shipped_produk($_POST['kategori']);
+      else if($_POST['command'] === 'filter_shipped_produk') {
+          filter_shipped_produk($_POST['kategori'], $_POST['nama_toko']);
       }
-      else if($_POST['command'] === 'return'){
-
+      else if($_POST['command'] === 'pilih_toko') {
+          if (!isset($_SESSION['nama_toko'])) {
+              $_SESSION['nama_toko'] = $_POST['nama_toko'];
+          }
       }
       else if($_POST['command'] === 'review'){
       }
@@ -91,8 +93,13 @@
    function ganti_subkategori($kategori_utama)
    {
        $query = "SELECT nama, kode
-                 FROM sub_kategori
-                 WHERE kode_kategori = '$kategori_utama'";
+                 FROM sub_kategori";
+
+       if ($kategori_utama !== 'Semua Kategori') {
+           $query .= " WHERE kode_kategori = '$kategori_utama'";
+       } else {
+           echo '<option value="Semua Kategori">Semua Sub-kategori</option>';
+       }
        $result = execute_query($query);
 
        while ($row = pg_fetch_row($result)) {
@@ -100,11 +107,15 @@
        }
    }
 
-    function filter_shipped_produk($kategori)
+    function filter_shipped_produk($kategori, $nama_toko)
     {
         $query = "SELECT SP.kode_produk, nama, harga, deskripsi, is_asuransi, stok, is_baru, harga_grosir
                   FROM shipped_produk SP, produk P
-                  WHERE SP.kode_produk = P.kode_produk AND SP.kategori = '$kategori'";
+                  WHERE SP.kode_produk = P.kode_produk AND nama_toko='$nama_toko'";
+
+        if ($kategori !== 'Semua Kategori') {
+            $query .= " AND SP.kategori = '$kategori'";
+        }
         $result = execute_query($query);
 
         while ($row = pg_fetch_row($result)) {

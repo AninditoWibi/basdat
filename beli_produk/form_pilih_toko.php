@@ -1,3 +1,4 @@
+<?php require '../application.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,13 +7,22 @@
         <title>Pilih Toko</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="src/css/style.css" rel="stylesheet">
+        <link href="../src/css/style.css" rel="stylesheet">
     </head>
     <body>
         <?php
-    include "navbar.php"
+    include "../navbar.php"
     ?>
         <div class="container">
+            <div id="nama-toko-kosong-alert" class="modal">
+                <div class="modal-content">
+                    <h4>Nama toko tidak ada</h4>
+                    <p>Silahkan pilih toko yang tersedia</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+                </div>
+            </div>
             <div class="row">
                 <div class="col s12 m10 push-m1">
                     <div class="card-panel z-depth-2">
@@ -21,26 +31,32 @@
                         </div>
                         <div class="container">
                             <div class="row">
-                                <form class="col s12" action="index.html" method="post">
+                                <div class="col s12">
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <select>
+                                            <select id="pilih-toko">
                                                 <option value="" disabled selected>Silahkan pilih toko</option>
-                                                <option value="1">Cyber Track Inc</option>
-                                                <option value="2">Schamberger-Rutherford</option>
-                                                <option value="3">Herzog, Altenwerth and Kris</option>
+                                                <?php
+                                                    $query = "SELECT nama
+                                                              FROM toko";
+                                                    $result = execute_query($query);
+
+                                                    while ($row = pg_fetch_row($result)) {
+                                                        echo "<option value='$row[0]'>$row[0]</option>";
+                                                    }
+                                                ?>
                                             </select>
                                             <label>Nama Toko</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col s12 center-align">
-                                            <button class="btn waves-effect waves-light btn-large" type="submit" name="action">Submit
+                                            <button id="pilih-toko-button" class="btn waves-effect waves-light btn-large" type="button">Submit
                                                 <i class="material-icons right">send</i>
                                             </button>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -49,6 +65,7 @@
         </div>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-        <script type="text/javascript" src="web/src/js/script.js"></script>
+        <script type="text/javascript" src="../web/src/js/script.js"></script>
+        <script type="text/javascript" src="../web/src/js/ajax.js"></script>
     </body>
 </html>

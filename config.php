@@ -3,8 +3,8 @@
 
     $servername = "localhost";
     $username = "postgres";
-    $password = "naonwe123";
-    $dbname = "resthurizfarchan";
+    $password = "";
+    $dbname = "";
     $portno = "5432";
 
     $conn_string = "host=".$servername." port=".$portno." dbname=".$dbname." user=".$username." password=".$password;

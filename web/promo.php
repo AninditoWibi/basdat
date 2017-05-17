@@ -97,6 +97,15 @@
 			$insertString1 = 'INSERT INTO promo VALUES (\''.$getLastID.'\',\''.$elemPS.'\',\''.$elemPE.'\',\''.$elemDS.'\',\''.$elemKP.'\');';
 			$insertQuery1 = pg_query($psqlconn, $insertString1);
 
+			$searchString = 'SELECT kode_produk FROM shipped_produk AS sp WHERE sp.kategori = \''.$elemSK.'\';';
+			$searchQuery = pg_query($psqlconn, $searchString);
+
+			while ($row = pg_fetch_row($searchQuery1)) {
+				$catCode = $row[0];
+				$insertString2 = 'INSERT INTO promo_produk VALUES (\''.$getLastID.'\',\''.$catCode.'\');';
+				$insertQuery2 = pg_query($psqlconn, $insertString1);
+			}
+
 			return $insertQuery1;
 		}
 

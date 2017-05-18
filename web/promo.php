@@ -90,7 +90,7 @@
 		}
 
 		function insertNewPR($psqlconn, $elemDS, $elemKP, $elemPS, $elemPE, $elemKU, $elemSK) {
-			$getQuery = pg_query($psqlconn, 'SELECT * FROM promo ORDER BY ID DESC LIMIT 1');
+			$getQuery = pg_query($psqlconn, 'SELECT * FROM promo ORDER BY ID DESC LIMIT 1;');
 			$getLastRow = pg_fetch_row($getQuery);
 			$getLastID = $getLastRow[0] + 1;
 
@@ -100,10 +100,10 @@
 			$searchString = 'SELECT kode_produk FROM shipped_produk AS sp WHERE sp.kategori = \''.$elemSK.'\';';
 			$searchQuery = pg_query($psqlconn, $searchString);
 
-			while ($row = pg_fetch_row($searchQuery1)) {
+			while ($row = pg_fetch_row($searchQuery)) {
 				$catCode = $row[0];
 				$insertString2 = 'INSERT INTO promo_produk VALUES (\''.$getLastID.'\',\''.$catCode.'\');';
-				$insertQuery2 = pg_query($psqlconn, $insertString1);
+				$insertQuery2 = pg_query($psqlconn, $insertString2);
 			}
 
 			return $insertQuery1;
@@ -141,11 +141,6 @@
 				if ($formResults["isFilledAwal"] === "1" && $formResults["isFilledAkhir"] === "1" && $formResults["isValidDate"] === "0") {
 					echo '<script> Materialize.toast("Tanggal periode tidak valid! Tanggal periode akhir tidak boleh lebih dari tanggal periode akhir.", 6400) </script>';
 				} 
-
-				//if ada yang iseng...
-				if ($formResults["isFilledAwal"] === "0" && $formResults["isFilledAkhir"] === "0" && $formResults["isValidDate"] === "1") {
-					echo '<script> Materialize.toast("Kok bisa?", 6400) </script>';
-				}
 
 				if ($formResults["isFilledKat"] === "0") {
 					echo '<script> Materialize.toast("Kategori kosong!", 6400) </script>';

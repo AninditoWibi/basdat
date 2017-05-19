@@ -19,9 +19,9 @@
 	<?php
 		// lakukan integrasi sql via php
 		$servername = "localhost";
-		$username = "postgres";
+		$username = "muhammad.fadhillah";
 		$password = "";
-		$dbname = "aninditoizdihardian";
+		$dbname = "muhammad.fadhillah";
 		$portno = "5432";
 
 		$conn_string = "host=".$servername." port=".$portno." dbname=".$dbname." user=".$username." password=".$password;
@@ -39,7 +39,7 @@
 				"isFilledLama" => "1",
 				"isFilledTarif" => "1"
 				);
-			
+
 
 			if ($elemNama === "") {
 				$isFilledArray["isFilledNama"] = "0";
@@ -93,7 +93,7 @@
 			$newJKnama = $_POST['nama_jk'];
 			$newJKlamakirim = $_POST['lama_jk'];
 			$newJKtarif = $_POST['tarif_jk'];
-			
+
 			$filledArray = fillJKForm($newJKnama, $newJKlamakirim, $newJKtarif);
 			$validArray = validateJKForm($psqlconn, $newJKnama, $newJKlamakirim, $newJKtarif);
 			$formResults = array_merge($filledArray, $validArray);
@@ -128,7 +128,7 @@
 			}
 		}
 
-		
+
 
 	?>
 		<div class="container">
@@ -157,10 +157,10 @@
 				<button class="btn waves-effect waves-light" id="jkSubmit" type="submit" name="action">Submit
   				</button>
 				</div>
-  				
+
 				</form>
 		</div>
-			
+
 		</div>
 	</body>
 </html>

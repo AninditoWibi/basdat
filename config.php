@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 
     $servername = "localhost";
-    $username = "postgres";
-    $password = "naonwe123";
-    $dbname = "resthurizfarchan";
+    $username = "muhammad.fadhillah";
+    $password = "";
+    $dbname = "muhammad.fadhillah";
     $portno = "5432";
 
     $conn_string = "host=".$servername." port=".$portno." dbname=".$dbname." user=".$username." password=".$password;
@@ -17,4 +17,3 @@
 
 
 ?>
-

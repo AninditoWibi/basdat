@@ -19,9 +19,9 @@
 	<?php
 		// lakukan integrasi sql via php
 		$servername = "localhost";
-		$username = "postgres";
+		$username = "muhammad.fadhillah";
 		$password = "";
-		$dbname = "aninditoizdihardian";
+		$dbname = "muhammad.fadhillah";
 		$portno = "5432";
 
 		$conn_string = "host=".$servername." port=".$portno." dbname=".$dbname." user=".$username." password=".$password;
@@ -45,7 +45,7 @@
 				"isFilledKat" => "1",
 				"isFilledSKat" => "1"
 				);
-			
+
 
 			if ($elemDS === "") {
 				$isFilledArray["isFilledDesc"] = "0";
@@ -107,7 +107,7 @@
 			$newPRend = $_POST['end'];
 			$newPRktg = $_POST['ktg'];
 			$newPRskt = $_POST['skt'];
-			
+
 			$filledArray = fillPRForm($newPRdsc, $newPRcod, $newPRstr, $newPRend, $newPRktg, $newPRskt);
 			$validArray = validatePRForm($newPRstr, $newPRend);
 			$formResults = array_merge($filledArray, $validArray);
@@ -127,11 +127,11 @@
 				}
 				if ($formResults["isFilledAkhir"] === "0") {
 					echo '<script> Materialize.toast("Periode akhir kosong!", 6400) </script>';
-				} 
+				}
 
 				if ($formResults["isFilledAwal"] === "1" && $formResults["isFilledAkhir"] === "1" && $formResults["isValidDate"] === "0") {
 					echo '<script> Materialize.toast("Tanggal periode tidak valid! Tanggal periode akhir tidak boleh lebih dari tanggal periode akhir.", 6400) </script>';
-				} 
+				}
 
 				//if ada yang iseng...
 				if ($formResults["isFilledAwal"] === "0" && $formResults["isFilledAkhir"] === "0" && $formResults["isValidDate"] === "1") {
@@ -146,7 +146,7 @@
 					echo '<script> Materialize.toast("Subkategori kosong!", 6400) </script>';
 				}
 
-				
+
 			} else if (insertNewPR($psqlconn, $newPRdsc, $newPRcod, $newPRstr, $newPRend, $newPRktg, $newPRskt)) {
 				echo '<script> Materialize.toast("Promo baru berhasil disimpan!", 6400) </script>';
 			}
@@ -203,7 +203,7 @@
 			</div>
 		</form>
 	</div>
-		
+
 	</div>
 	</body>
 </html>

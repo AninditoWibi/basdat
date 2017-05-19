@@ -7,11 +7,11 @@
         <li><a href="logout.php">Log Out</a></li> <?php
         }else{
         ?>
-        <li><a href="login.php">Log In</a></li>
-        <li><a href="register.php">Register</a></li>
+        <li><a href="../login.php">Log In</a></li>
+        <li><a href="../register.php">Register</a></li>
         <?php }
         ?>
-        <li><a href="index.php">Home</a></li>
+        <li><a href="../index.php">Home</a></li>
       </ul>
     </div>
   </nav>

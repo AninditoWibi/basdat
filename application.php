@@ -22,7 +22,7 @@
         </form>
    */
    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      if (isset($_POST['command'])) {
+      if (isset($_POST['command']) && isset($_SESSION['login'])) {
           if($_POST['command'] === 'login') {
               login($_POST['username'], $_POST['password']);
           } elseif($_POST['command'] === 'logout') {
@@ -43,6 +43,12 @@
               $_POST['harga_produk'],
               $_POST['berat_barang'],
               $_POST['kuantitas_barang']);
+          }
+          elseif ($_POST['command'] === 'checkout') {
+              checkout($_POST['jasa_kirim'], $_POST['alamat']);
+          }
+          elseif ($_POST['command'] === 'beli_pulsa') {
+              beli_pulsa($_POST['kode_produk'], $_POST['harga'], $_POST['nomor_hp_listrik'], $_POST['nominal']);
           }
       }
    }
@@ -169,6 +175,53 @@
                          '$kuantitas',
                          '$harga',
                          '$sub_total')";
+        execute_query($query);
+    }
+
+    function checkout($jasa_kirim, $alamat)
+    {
+        $email = $_SESSION['login'];
+        $nama_toko = $_SESSION['nama_toko'];
+
+        $query = "SELECT sum(berat)
+                  FROM keranjang_belanja
+                  WHERE pembeli = '$email'";
+
+        $total_berat = pg_fetch_row(execute_query($query))[0];
+
+        $query = "SELECT sum(sub_total)
+                  FROM keranjang_belanja
+                  WHERE pembeli = '$email'";
+
+        $total_biaya = pg_fetch_row(execute_query($query))[0];
+
+        $query = "SELECT tarif
+                  FROM jasa_kirim
+                  WHERE nama = '$jasa_kirim'";
+
+        $tarif = pg_fetch_row(execute_query($query))[0];
+        $biaya_kirim = $total_berat * $tarif;
+        $total_bayar = $total_biaya + $biaya_kirim;
+        $no_invoice = 'V'.rand(100000000, 999999999);
+        $date = date('Y-m-d', time());
+        $timestamp = date('Y-m-d H:i:s', time());
+
+        $query = "INSERT INTO transaksi_shipped(no_invoice, tanggal, waktu_bayar, email_pembeli, alamat_kirim, nama_jasa_kirim, nama_toko, status)
+                  VALUES('$no_invoice', '$date', '$timestamp', '$email', '$alamat', '$jasa_kirim', '$nama_toko', 1)";
+        execute_query($query);
+
+        $query = "INSERT INTO list_item VALUES($no_invoice, )";
+    }
+
+    function beli_pulsa($kode_produk, $harga, $nomor, $nominal)
+    {
+        $email = $_SESSION['login'];
+        $no_invoice = 'V'.rand(100000000, 999999999);
+        $date = date('Y-m-d', time());
+        $timestamp = date('Y-m-d H:i:s', time());
+
+        $query = "INSERT INTO transaksi_pulsa(no_invoice, tanggal, waktu_bayar, status, total_bayar, email_pembeli, nominal, nomor, kode_produk)
+                  VALUES('$no_invoice', '$date', '$timestamp', 2, '$harga', '$email', '$nominal', '$nomor', '$kode_produk')";
         execute_query($query);
     }
 ?>

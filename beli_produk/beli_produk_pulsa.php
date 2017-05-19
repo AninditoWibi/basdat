@@ -1,3 +1,4 @@
+<?php require '../application.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,63 +27,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>P0000001</td>
-                        <td>Pulsa Telkomsel</td>
-                        <td>12000</td>
-                        <td>Untuk nelpon dan internetan</td>
-                        <td>10000</td>
-                        <td>
-                            <button class="btn waves-effect waves-light" type="submit" name="beli">Beli
+                    <?php
+                        $query = "SELECT *
+                                  FROM produk_pulsa NATURAL JOIN produk";
+                        $result = execute_query($query);
+
+                        while ($row = pg_fetch_row($result)) {
+                            echo "<tr>";
+                            echo "<td>".$row[0]."</td>";
+                            echo "<td>".$row[2]."</td>";
+                            echo "<td>".$row[3]."</td>";
+                            echo "<td>".$row[4]."</td>";
+                            echo "<td>".$row[1]."</td>";
+                    ?>
+                    <td>
+                        <form action="form_beli_produk_pulsa.php" method="post">
+                            <input type="hidden" name="kode_produk" value="<?php echo $row[0]; ?>">
+                            <input type="hidden" name="harga" value="<?php echo $row[3]; ?>">
+                            <input type="hidden" name="nominal" value="<?php echo $row[1]; ?>">
+                            <button class="btn waves-effect waves-light" type="submit">Beli
                                 <i class="material-icons right">shopping_cart</i>
                             </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>P0000021</td>
-                        <td>Pulsa XL</td>
-                        <td>12000</td>
-                        <td>Untuk nelpon dan internetan</td>
-                        <td>10000</td>
-                        <td>
-                            <button class="btn waves-effect waves-light" type="submit" name="beli">Beli
-                                <i class="material-icons right">shopping_cart</i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>P0000081</td>
-                        <td>Pulsa Smartfren</td>
-                        <td>12000</td>
-                        <td>Untuk nelpon dan internetan</td>
-                        <td>10000</td>
-                        <td>
-                            <button class="btn waves-effect waves-light" type="submit" name="beli">Beli
-                                <i class="material-icons right">shopping_cart</i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>P0000198</td>
-                        <td>Paket Airtel</td>
-                        <td>230000</td>
-                        <td>Untuk nelpon dan internetan</td>
-                        <td>200000</td>
-                        <td>
-                            <button class="btn waves-effect waves-light" type="submit" name="beli">Beli
-                                <i class="material-icons right">shopping_cart</i>
-                            </button>
-                        </td>
-                    </tr>
+                        </form>
+                    </td>
+                    <?php
+                            echo "</tr>";
+                        }
+                    ?>
                 </tbody>
             </table>
             <ul class="pagination center-align">
                 <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
                 <li class="active"><a href="#!">1</a></li>
-                <li class="waves-effect"><a href="#!">2</a></li>
-                <li class="waves-effect"><a href="#!">3</a></li>
-                <li class="waves-effect"><a href="#!">4</a></li>
-                <li class="waves-effect"><a href="#!">5</a></li>
                 <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
             </ul>
         </div>

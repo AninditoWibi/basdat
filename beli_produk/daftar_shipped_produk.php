@@ -10,7 +10,7 @@
     </head>
     <body>
         <?php
-    include "../navbar.php"
+    include "navbar.php"
     ?>
         <div class="container">
             <div class="card-panel z-depth-2">
@@ -51,37 +51,40 @@
                     <li class="active"><a href="#!">1</a></li>
                     <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
                 </ul>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <select id="pilih-jasa-kirim">
-                            <?php
-                            $nama_toko = $_SESSION['nama_toko'];
-                            $query = "SELECT nama
-                                      FROM jasa_kirim, toko_jasa_kirim
-                                      WHERE jasa_kirim = nama AND nama_toko = '$nama_toko'";
-                            $result = execute_query($query);
+                <form action="../index.php" method="post">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <select name="jasa_kirim">
+                                <?php
+                                $nama_toko = $_SESSION['nama_toko'];
+                                $query = "SELECT nama
+                                FROM jasa_kirim, toko_jasa_kirim
+                                WHERE jasa_kirim = nama AND nama_toko = '$nama_toko'";
+                                $result = execute_query($query);
 
-                            while ($row = pg_fetch_row($result)) {
-                                echo "<option value=\"$row[0]\">$row[0]</option>";
-                            }
-                            ?>
-                        </select>
-                        <label>Jasa Kirim</label>
+                                while ($row = pg_fetch_row($result)) {
+                                    echo "<option value=\"$row[0]\">$row[0]</option>";
+                                }
+                                ?>
+                            </select>
+                            <label>Jasa Kirim</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <textarea id="alamat_kirim" class="materialize-textarea"></textarea>
-                        <label for="alamat_kirim">Alamat kirim</label>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <textarea id="alamat_kirim" class="materialize-textarea" name="alamat"></textarea>
+                            <label for="alamat_kirim">Alamat kirim</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col s12 center-align">
-                        <button class="btn waves-effect waves-light btn-large" type="submit" name="action">Checkout
-                            <i class="material-icons right">send</i>
-                        </button>
+                    <div class="row">
+                        <div class="col s12 center-align">
+                            <input type="hidden" name="command" value="checkout">
+                            <button class="btn waves-effect waves-light btn-large" type="submit">Checkout
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

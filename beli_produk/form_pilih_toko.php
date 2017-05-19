@@ -11,7 +11,7 @@
     </head>
     <body>
         <?php
-    include "../navbar.php"
+    include "navbar.php"
     ?>
         <div class="container">
             <div id="nama-toko-kosong-alert" class="modal">

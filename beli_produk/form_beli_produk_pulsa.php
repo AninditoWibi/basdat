@@ -1,3 +1,4 @@
+<?php require '../application.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,22 +20,25 @@
                 </div>
                 <div class="container">
                     <div class="row">
-                        <form class="col s12" action="index.html" method="post">
+                        <form class="col s12" action="../index.php" method="post">
                             <div class="row">
-                                <div class="input-field col s12">
-                                    <input value="P0000021" id="kode_produk" type="text" class="validate">
-                                    <label for="kode_produk">Kode Produk</label>
+                                <div class="col s12">
+                                    <p>Kode Produk : <?php echo $_POST['kode_produk']; ?></p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="nomor_token" type="text" class="validate">
+                                    <input id="nomor_token" type="text" class="validate" name="nomor_hp_listrik">
                                     <label for="nomor_token">Nomor HP / Token Listrik</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col s12 center-align">
-                                    <button class="btn waves-effect waves-light btn-large" type="submit" name="action">Submit
+                                    <input type="hidden" name="command" value="beli_pulsa">
+                                    <input type="hidden" name="kode_produk" value="<?php echo $_POST['kode_produk']; ?>">
+                                    <input type="hidden" name="harga" value="<?php echo $_POST['harga']; ?>">
+                                    <input type="hidden" name="nominal" value="<?php echo $_POST['nominal']; ?>">
+                                    <button class="btn waves-effect waves-light btn-large" type="submit">Submit
                                         <i class="material-icons right">send</i>
                                     </button>
                                 </div>

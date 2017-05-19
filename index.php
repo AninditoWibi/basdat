@@ -25,9 +25,6 @@
         <a href="beli_produk/daftar_shipped_produk.php" class="btn waves-effect waves-light btn-large">Melihat Keranjang Belanja
             <i class="material-icons right">send</i>
         </a>
-        <a href="#" class="btn waves-effect waves-light btn-large">Membuka Toko
-            <i class="material-icons right">send</i>
-        </a>
          <?php 
         if($_SESSION['penjual']!="f"){
          ?>

@@ -10,6 +10,11 @@
     </head>
     <body>
         <?php include 'navbar.php' ?>
+        <?php
+        if(!isset($_SESSION['login'])) {
+            header("Location: ../index.php");
+        }
+        ?>
         <div class="container">
             <div class="row">
                 <div class="col s12 m10 push-m1">

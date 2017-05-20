@@ -10,8 +10,11 @@
 <body>
     <?php
     @session_start();
-    include "navbar.php";
-   
+    if(!isset($_SESSION['admin'])){
+    	header("Location: index.php");
+    } else {
+
+   	include "navbar.php";
     ?>
     <h2 class="teal-text center-align">Tambah Kategori Baru</h2>
 	<div class="row" style="width: 500px">
@@ -22,7 +25,7 @@
     elseif(isset($_SESSION['success']))
     	$msg = "Kategori berhasil dimasukkan";
       echo "<div>".$msg."</div>";
-      session_unset('wrong');
+      unset($_SESSION['wrong']);
     ?>
 		<form action="addkategoriprocess.php" method="post" class="col s12">
 		<div class="input-field col s12">
@@ -55,5 +58,8 @@
     <script type="text/javascript" src="jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="web/src/js/materialize.min.js"></script>
 	<script src="addsub.js" type="text/javascript"></script>
+	<?php 
+	}
+	 ?>
 </body>
 </html>

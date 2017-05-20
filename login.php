@@ -17,6 +17,9 @@
       echo "<div>".$msg."</div>";
       session_unset('wrong');
     }
+	if (isset($_SESSION['login']) || isset($_SESSION['admin']) || isset($_SESSION['penjual'])) {
+		header("Location: index.php");
+	}
     ?>
 	<div class="container">
 		<div class="row">

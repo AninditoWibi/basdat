@@ -10,7 +10,7 @@
     </head>
     <body>
         <?php
-    include "../navbar.php"
+    include "navbar.php"
     ?>
         <div class="container">
             <div class="center-align">

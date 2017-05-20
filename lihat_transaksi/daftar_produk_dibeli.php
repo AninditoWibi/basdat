@@ -20,7 +20,16 @@
                     </div>
                     <div class="row">
                         <div class="col s6">
-                            <p>No Invoice : </p>
+                            <p>No Invoice :
+                                <?php
+                                    if (!isset($_POST['no_invoice'])) {
+                                        header("Location: daftar_transaksi_shipped.php");
+                                    } else {
+                                        $no_invoice = $_POST['no_invoice'];
+                                        echo $no_invoice;
+                                    }
+                                ?>
+                            </p>
                         </div>
                     </div>
                     <table class="centered highlight">
@@ -37,11 +46,32 @@
                             <?php
                                 $conn = connectDB();
                                 $email = $_SESSION['login'];
-                                $no_invoice = $_POST['no_invoice'];
 
-                                $query = "SELECT nama, berat, kuantitas, LI.harga, sub_total
+                                /*--------------- Ambil banyaknya data -------------*/
+                                $query = "SELECT count(*)
+                                          FROM list_item
+                                          WHERE no_invoice = '$no_invoice'";
+                                $row_nums = pg_fetch_row(execute_query($query))[0];
+                                $page_nums = ceil($row_nums / 10);
+                                /*--------------------------------------------------*/
+
+                                /*------------------- Page Number Handlers --------------------*/
+                                if (!isset($_GET['page'])){
+                                    $current_page = 1;
+                                } elseif ($_GET['page'] > $page_nums || $_GET['page'] < 1) {
+                                    $current_page = 1;
+                                } else {
+                                    $current_page = $_GET['page'];
+                                }
+                                $offset = 10 * ($current_page - 1);
+                                /*-------------------------------------------------------------*/
+
+
+                                $query = "SELECT nama, berat, kuantitas, LI.harga, sub_total, LI.kode_produk
                                           FROM list_item LI, produk P
-                                          WHERE LI.kode_produk = P.kode_produk AND LI.no_invoice = '$no_invoice'";
+                                          WHERE LI.kode_produk = P.kode_produk AND LI.no_invoice = '$no_invoice'
+                                          OFFSET $offset
+                                          LIMIT 10";
 
                                 $result = execute_query($query);
 
@@ -54,8 +84,12 @@
                                         echo "<td>$row[4]</td>";
                             ?>
                                     <td>
-                                        <button class="btn waves-effect waves-light" type="submit">Ulas
-                                        </button>
+                                        <form action="../web/ulas.php" method="post">
+                                            <input type="hidden" name="kode_produk" value="<?php echo $row[5]; ?>">
+                                            <button class="btn waves-effect waves-light" type="submit">Ulas
+                                                <i class="material-icons right">mode_edit</i>
+                                            </button>
+                                        </form>
                                     </td>
                             <?php
                                     echo "</tr>";
@@ -64,9 +98,15 @@
                         </tbody>
                     </table>
                     <ul class="pagination center-align">
-                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                        <li class="active"><a href="#!">1</a></li>
-                        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                        <?php
+                            for ($ii=1; $ii <= $page_nums; $ii++) {
+                        ?>
+                                <li class="<?php if ($ii == $current_page) echo 'active'; else echo 'waves-effect'; ?>">
+                                    <a href="?page=<?php echo $ii; ?>"><?php echo $ii; ?></a>
+                                </li>
+                        <?php
+                            }
+                        ?>
                     </ul>
                 </div>
             </div>

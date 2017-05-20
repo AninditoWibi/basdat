@@ -37,9 +37,31 @@
                                 $conn = connectDB();
                                 $email = $_SESSION['login'];
 
-                                $query = "SELECT *
+                                /*--------------- Ambil banyaknya data -------------*/
+                                $query = "SELECT count(*)
                                           FROM transaksi_shipped
                                           WHERE email_pembeli = '$email'";
+                                $row_nums = pg_fetch_row(execute_query($query))[0];
+                                $page_nums = ceil($row_nums / 10);
+                                /*--------------------------------------------------*/
+
+                                /*------------------- Page Number Handlers --------------------*/
+                                if (!isset($_GET['page'])){
+                                    $current_page = 1;
+                                } elseif ($_GET['page'] > $page_nums || $_GET['page'] < 1) {
+                                    $current_page = 1;
+                                } else {
+                                    $current_page = $_GET['page'];
+                                }
+                                $offset = 10 * ($current_page - 1);
+                                /*-------------------------------------------------------------*/
+
+
+                                $query = "SELECT *
+                                          FROM transaksi_shipped
+                                          WHERE email_pembeli = '$email'
+                                          OFFSET $offset
+                                          LIMIT 10";
 
                                 $result = execute_query($query);
 
@@ -48,7 +70,17 @@
                                         echo "<td>$row[0]</td>";
                                         echo "<td>$row[6]</td>";
                                         echo "<td>$row[1]</td>";
-                                        echo "<td>$row[3]</td>";
+                                        echo "<td>";
+                                        if ($row[3] == 1) {
+                                            echo "Transaksi Dilakukan";
+                                        } elseif ($row[3] == 2) {
+                                            echo "Barang Sudah Dibayar";
+                                        } elseif ($row[3] == 3) {
+                                            echo "Barang sudah dikirim";
+                                        } else {
+                                            echo "Barang sudah diterima";
+                                        }
+                                        echo "</td>";
                                         echo "<td>$row[4]</td>";
                                         echo "<td>$row[7]</td>";
                                         echo "<td>$row[8]</td>";
@@ -71,9 +103,15 @@
                         </tbody>
                     </table>
                     <ul class="pagination center-align">
-                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                        <li class="active"><a href="#!">1</a></li>
-                        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                        <?php
+                            for ($ii=1; $ii <= $page_nums; $ii++) {
+                        ?>
+                                <li class="<?php if ($ii == $current_page) echo 'active'; else echo 'waves-effect'; ?>">
+                                    <a href="?page=<?php echo $ii; ?>"><?php echo $ii; ?></a>
+                                </li>
+                        <?php
+                            }
+                        ?>
                     </ul>
                 </div>
             </div>

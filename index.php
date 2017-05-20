@@ -20,7 +20,7 @@
         <a href="beli_produk/index.php" class="btn waves-effect waves-light btn-large">Membeli Produk
             <i class="material-icons right">send</i>
         </a>
-        <a href="" class="btn waves-effect waves-light btn-large">Melihat Transaksi
+        <a href="lihat_transaksi" class="btn waves-effect waves-light btn-large">Melihat Transaksi
             <i class="material-icons right">send</i>
         </a>
         <a href="beli_produk/daftar_shipped_produk.php" class="btn waves-effect waves-light btn-large">Melihat Keranjang Belanja

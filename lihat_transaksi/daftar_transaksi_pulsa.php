@@ -1,3 +1,4 @@
+<?php require '../application.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,45 +27,68 @@
                             <th>Total Bayar</th>
                             <th>Nominal</th>
                             <th>Nomor</th>
-                            <th>Ulasan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>V000000001</td>
-                            <td>Pulsa Telkomsel</td>
-                            <td>2014-04-01</td>
-                            <td>SUDAH DIBAYAR</td>
-                            <td>12000</td>
-                            <td>10</td>
-                            <td>081210001001</td>
-                            <td>
-                                <button class="btn waves-effect waves-light" type="submit" name="beli">Ulas
-                                    <i class="material-icons right">mode_edit</i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>V000000002</td>
-                            <td>Pulsa Telkomsel</td>
-                            <td>2014-04-02</td>
-                            <td>SUDAH DIBAYAR</td>
-                            <td>22000</td>
-                            <td>20</td>
-                            <td>081210001001</td>
-                            <td>
-                                <button class="btn waves-effect waves-light" type="submit" name="beli">Ulas
-                                    <i class="material-icons right">mode_edit</i>
-                                </button>
-                            </td>
-                        </tr>
+                        <?php
+                            $email = $_SESSION['login'];
+
+                            /*--------------- Ambil banyaknya data -------------*/
+                            $query = "SELECT count(*)
+                                      FROM transaksi_pulsa
+                                      WHERE email_pembeli = '$email'";
+                            $row_nums = pg_fetch_row(execute_query($query))[0];
+                            $page_nums = ceil($row_nums / 10);
+                            /*--------------------------------------------------*/
+
+                            if (!isset($_GET['page'])){
+                                $current_page = 1;
+                            } elseif ($_GET['page'] > $page_nums || $_GET['page'] < 1) {
+                                $current_page = 1;
+                            } else {
+                                $current_page = $_GET['page'];
+                            }
+                            $offset = 10 * ($current_page - 1);
+
+
+                            $query = "SELECT no_invoice, nama, tanggal, status, total_bayar, nominal, nomor
+                                      FROM transaksi_pulsa TP, produk P
+                                      WHERE email_pembeli = '$email' AND TP.kode_produk = P.kode_produk
+                                      OFFSET $offset
+                                      LIMIT 10";
+                            $result = execute_query($query);
+
+
+                            while ($row = pg_fetch_row($result)) {
+                                echo "<tr>";
+                                echo "<td>".$row[0]."</td>";
+                                echo "<td>".$row[1]."</td>";
+                                echo "<td>".$row[2]."</td>";
+                                echo "<td>";
+                                if ($row[3] < 2) {
+                                    echo "BELUM DIBAYAR";
+                                } else {
+                                    echo "SUDAH DIBAYAR";
+                                }
+                                echo "</td>";
+                                echo "<td>".$row[4]."</td>";
+                                echo "<td>".$row[5]."</td>";
+                                echo "<td>".$row[6]."</td>";
+                                echo "</tr>";
+                            }
+                        ?>
                     </tbody>
                 </table>
                 <ul class="pagination center-align">
-                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                    <li class="active"><a href="#!">1</a></li>
-                    <li class="waves-effect"><a href="#!">2</a></li>
-                    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                    <?php
+                        for ($ii=1; $ii <= $page_nums; $ii++) {
+                    ?>
+                            <li class="<?php if ($ii == $current_page) echo 'active'; else echo 'waves-effect'; ?>">
+                                <a href="?page=<?php echo $ii; ?>"><?php echo $ii; ?></a>
+                            </li>
+                    <?php
+                        }
+                    ?>
                 </ul>
             </div>
         </div>

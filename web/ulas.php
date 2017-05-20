@@ -84,7 +84,7 @@
 			}
 
 			 if(!isset($_SESSION['login'])){
-    	header("Location: index.php");
+    	header("Location: ../login.php");
 	}
     } else {
 	?>

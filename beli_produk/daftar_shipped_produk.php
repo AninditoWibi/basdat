@@ -12,7 +12,7 @@
     <?php
     include "navbar.php";
     if(!isset($_SESSION['login'])){
-        header("Location: ../index.php");
+        header("Location: ../login.php");
     }
     ?>
     <div class="container">
@@ -62,25 +62,38 @@
                     LIMIT 10";
                     $result = execute_query($query);
 
-                    while ($row = pg_fetch_row($result)) {
-                        echo "<tr>";
-                        foreach ($row as $column) {
-                            echo "<td>".$column."</td>";
+                    if (pg_num_rows($result) == 0) {
+                    ?>
+                        <td colspan="6">
+                            <div class="card-panel red lighten-2 center-align">
+                                <h5>Oops, keranjang belanja Anda kosong. Sudahkah anda membeli barang?</h5>
+                            </div>
+                        </td>
+                    <?php
+                    } else {
+                        while ($row = pg_fetch_row($result)) {
+                            echo "<tr>";
+                            foreach ($row as $column) {
+                                echo "<td>".$column."</td>";
+                            }
+                            echo "</tr>";
                         }
-                        echo "</tr>";
                     }
                     ?>
                 </tbody>
             </table>
+            <?php
+                if (pg_num_rows($result) > 0) {
+            ?>
             <ul class="pagination center-align">
                 <?php
-                    for ($ii=1; $ii <= $page_nums; $ii++) {
-                ?>
-                        <li class="<?php if ($ii == $current_page) echo 'active'; else echo 'waves-effect'; ?>">
-                            <a href="?page=<?php echo $ii; ?>"><?php echo $ii; ?></a>
-                        </li>
-                <?php
-                    }
+                for ($ii=1; $ii <= $page_nums; $ii++) {
+                    ?>
+                    <li class="<?php if ($ii == $current_page) echo 'active'; else echo 'waves-effect'; ?>">
+                        <a href="?page=<?php echo $ii; ?>"><?php echo $ii; ?></a>
+                    </li>
+                    <?php
+                }
                 ?>
             </ul>
             <form action="../index.php" method="post">
@@ -117,6 +130,9 @@
                     </div>
                 </div>
             </form>
+            <?php
+                }
+            ?>
         </div>
     </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

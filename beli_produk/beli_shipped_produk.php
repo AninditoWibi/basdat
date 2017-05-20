@@ -10,8 +10,9 @@
 </head>
 <body>
     <?php
+    include "navbar.php";
     if(!isset($_SESSION['login'])){
-        header("Location: ../index.php");
+        header("Location: ../login.php");
     }
     ?>
     <div class="container">

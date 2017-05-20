@@ -10,8 +10,11 @@
     </head>
     <body>
         <?php
-    include "navbar.php"
-    ?>
+        include "navbar.php";
+        if(!isset($_SESSION['login'])){
+            header("Location: ../login.php");
+        }
+        ?>
         <div class="container">
             <div class="card-panel z-depth-2">
                 <div class="center-align">

@@ -9,7 +9,12 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
-        <?php include 'navbar.php' ?>
+        <?php
+        include "navbar.php";
+        if(!isset($_SESSION['login'])){
+            header("Location: ../login.php");
+        }
+        ?>
         <div class="container">
             <div class="row">
                 <div class="col s12 m10 push-m1">

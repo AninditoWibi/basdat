@@ -9,10 +9,10 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
-        <?php include 'navbar.php' ?>
         <?php
-        if(!isset($_SESSION['login'])) {
-            header("Location: ../index.php");
+        include "navbar.php";
+        if(!isset($_SESSION['login'])){
+            header("Location: ../login.php");
         }
         ?>
         <div class="container">

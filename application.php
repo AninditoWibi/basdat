@@ -183,6 +183,7 @@
         $email = $_SESSION['login'];
         $nama_toko = $_SESSION['nama_toko'];
 
+        /*----------------- Hitung total bayar ---------------------*/
         $query = "SELECT sum(berat)
                   FROM keranjang_belanja
                   WHERE pembeli = '$email'";
@@ -202,23 +203,67 @@
         $tarif = pg_fetch_row(execute_query($query))[0];
         $biaya_kirim = $total_berat * $tarif;
         $total_bayar = $total_biaya + $biaya_kirim;
-        $no_invoice = 'V'.rand(100000000, 999999999);
+        /*----------------------------------------------------------*/
+
+
+        /*------------------ Generate nomor invoice -----------------*/
+        $query = "SELECT count(no_invoice)
+                  FROM transaksi_shipped";
+        $nums = pg_fetch_row(execute_query($query))[0] + 1000000001;
+        $no_invoice = 'V'.substr(strval($nums), 1);
+        /*----------------------------------------------------------*/
+
+
+        /*------------------ Generate waktu dan tanggal -----------------*/
         $date = date('Y-m-d', time());
         $timestamp = date('Y-m-d H:i:s', time());
+        /*---------------------------------------------------------------*/
 
-        $query = "INSERT INTO transaksi_shipped(no_invoice, tanggal, waktu_bayar, email_pembeli, alamat_kirim, nama_jasa_kirim, nama_toko, status)
-                  VALUES('$no_invoice', '$date', '$timestamp', '$email', '$alamat', '$jasa_kirim', '$nama_toko', 1)";
+
+        /*----------------- Masukin ke transaksi_shipped --------------------*/
+        $query = "INSERT INTO transaksi_shipped(no_invoice, tanggal, waktu_bayar, email_pembeli, alamat_kirim, nama_jasa_kirim, nama_toko, status, total_bayar, biaya_kirim)
+                  VALUES('$no_invoice', '$date', '$timestamp', '$email', '$alamat', '$jasa_kirim', '$nama_toko', 4, '$total_bayar', '$biaya_kirim')";
         execute_query($query);
+        /*-------------------------------------------------------------------*/
 
-        $query = "INSERT INTO list_item VALUES($no_invoice, )";
+
+        /*----------------- Masukin ke list_item --------------------*/
+        $query = "SELECT kode_produk, berat, kuantitas, harga, sub_total
+                  FROM keranjang_belanja
+                  WHERE pembeli = '$email'";
+
+        $result = execute_query($query);
+
+        while ($row = pg_fetch_row($result)) {
+            $query = "INSERT INTO list_item(no_invoice, kode_produk, berat, kuantitas, harga, sub_total)
+                      VALUES('$no_invoice', '$row[0]', '$row[1]', '$row[2]', '$row[3]', '$row[4]')";
+            execute_query($query);
+        }
+        /*-----------------------------------------------------------*/
+
+
+        /*-------------- Delete yang dari keranjang_belanja --------------*/
+        $query = "DELETE FROM keranjang_belanja WHERE pembeli = '$email'";
+        execute_query($query);
+        /*----------------------------------------------------------------*/
     }
 
     function beli_pulsa($kode_produk, $harga, $nomor, $nominal)
     {
         $email = $_SESSION['login'];
-        $no_invoice = 'V'.rand(100000000, 999999999);
+
+        /*------------------ Generate nomor invoice -----------------*/
+        $query = "SELECT count(no_invoice)
+                  FROM transaksi_pulsa";
+        $nums = pg_fetch_row(execute_query($query))[0] + 1000000001;
+        $no_invoice = 'V'.substr(strval($nums), 1);
+        /*----------------------------------------------------------*/
+
+
+        /*------------------ Generate waktu dan tanggal -----------------*/
         $date = date('Y-m-d', time());
         $timestamp = date('Y-m-d H:i:s', time());
+        /*---------------------------------------------------------------*/
 
         $query = "INSERT INTO transaksi_pulsa(no_invoice, tanggal, waktu_bayar, status, total_bayar, email_pembeli, nominal, nomor, kode_produk)
                   VALUES('$no_invoice', '$date', '$timestamp', 2, '$harga', '$email', '$nominal', '$nomor', '$kode_produk')";

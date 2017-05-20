@@ -28,9 +28,28 @@
                 </thead>
                 <tbody>
                     <?php
-                        $query = "SELECT *
+                        /*--------------- Ambil banyaknya data -------------*/
+                        $query = "SELECT count(*)
                                   FROM produk_pulsa NATURAL JOIN produk";
+                        $row_nums = pg_fetch_row(execute_query($query))[0];
+                        $page_nums = ceil($row_nums / 10);
+                        /*--------------------------------------------------*/
+
+                        if (!isset($_GET['page'])){
+                            $current_page = 1;
+                        } elseif ($_GET['page'] > $page_nums || $_GET['page'] < 1) {
+                            $current_page = 1;
+                        } else {
+                            $current_page = $_GET['page'];
+                        }
+                        $offset = 10 * ($current_page - 1);
+
+                        $query = "SELECT *
+                                  FROM produk_pulsa NATURAL JOIN produk
+                                  OFFSET $offset
+                                  LIMIT 10";
                         $result = execute_query($query);
+
 
                         while ($row = pg_fetch_row($result)) {
                             echo "<tr>";
@@ -57,9 +76,15 @@
                 </tbody>
             </table>
             <ul class="pagination center-align">
-                <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                <li class="active"><a href="#!">1</a></li>
-                <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                <?php
+                    for ($ii=1; $ii <= $page_nums; $ii++) {
+                ?>
+                        <li class="<?php if ($ii == $current_page) echo 'active'; else echo 'waves-effect'; ?>">
+                            <a href="?page=<?php echo $ii; ?>"><?php echo $ii; ?></a>
+                        </li>
+                <?php
+                    }
+                ?>
             </ul>
         </div>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

@@ -67,7 +67,7 @@
                         <th class="center-align">Deskripsi</th>
                         <th class="center-align">Asuransi</th>
                         <th class="center-align">Stok</th>
-                        <th class="center-align">Baru/Bekas</th>
+                        <th class="center-align">Baru</th>
                         <th>Harga Grosir</th>
                     </tr>
                 </thead>

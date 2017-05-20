@@ -1,3 +1,4 @@
+<?php require '../application.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,44 +33,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>V000000001</td>
-                                <td>Cyber Track Inc</td>
-                                <td>2014-04-01</td>
-                                <td>BARANG SUDAH DIBAYAR</td>
-                                <td>79600</td>
-                                <td>707 Harper Circle</td>
-                                <td>8000</td>
-                                <td>OQN6486715906681</td>
-                                <td>JNE YES</td>
-                                <td>
-                                    <button class="btn waves-effect waves-light" type="submit" name="beli">Produk
-                                        <i class="material-icons left">view_list</i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>V000000002</td>
-                                <td>Schamberger-Rutherford</td>
-                                <td>2017-02-18</td>
-                                <td>BARANG SUDAH DIBAYAR</td>
-                                <td>99500</td>
-                                <td>5 Petterle Place</td>
-                                <td>15000</td>
-                                <td>QBN7202961661740</td>
-                                <td>JNE REGULER</td>
-                                <td>
-                                    <button class="btn waves-effect waves-light" type="submit" name="beli">Produk
-                                        <i class="material-icons left">view_list</i>
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php
+                                $conn = connectDB();
+                                $email = $_SESSION['login'];
+
+                                $query = "SELECT *
+                                          FROM transaksi_shipped
+                                          WHERE email_pembeli = '$email'";
+
+                                $result = execute_query($query);
+
+                                while ($row = pg_fetch_row($result)) {
+                                    echo "<tr>";
+                                        echo "<td>$row[0]</td>";
+                                        echo "<td>$row[6]</td>";
+                                        echo "<td>$row[1]</td>";
+                                        echo "<td>$row[3]</td>";
+                                        echo "<td>$row[4]</td>";
+                                        echo "<td>$row[7]</td>";
+                                        echo "<td>$row[8]</td>";
+                                        echo "<td>$row[9]</td>";
+                                        echo "<td>$row[10]</td>";
+                            ?>
+                                    <td>
+                                        <form action="daftar_produk_dibeli.php" method="post">
+                                            <input type="hidden" name="no_invoice" value="<?php echo $row[0]; ?>">
+                                            <button class="btn waves-effect waves-light" type="submit">Lihat
+                                                <i class="material-icons left">view_list</i>
+                                            </button>
+                                        </form>
+                                    </td>
+
+                            <?php
+                                    echo "</tr>";
+                                }
+                            ?>
                         </tbody>
                     </table>
                     <ul class="pagination center-align">
                         <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
                         <li class="active"><a href="#!">1</a></li>
-                        <li class="waves-effect"><a href="#!">2</a></li>
                         <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
                     </ul>
                 </div>
@@ -77,6 +80,7 @@
         </div>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-        <script type="text/javascript" src="web/src/js/script.js"></script>
+        <script type="text/javascript" src="../web/src/js/script.js"></script>
+        <script type="text/javascript" src="../web/src/js/ajax.js"></script>
     </body>
 </html>

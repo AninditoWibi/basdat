@@ -126,6 +126,7 @@
 				}
 			} else if (insertNewJK($psqlconn, $newJKnama, $newJKlamakirim, $newJKtarif)) {
 				echo '<script> Materialize.toast("Jasa kirim baru berhasil disimpan!", 6400) </script>';
+				header("Location: index.php");
 			}
 		}
 

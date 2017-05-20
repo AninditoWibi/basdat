@@ -155,6 +155,7 @@
 				
 			} else if (insertNewPR($psqlconn, $newPRdsc, $newPRcod, $newPRstr, $newPRend, $newPRktg, $newPRskt)) {
 				echo '<script> Materialize.toast("Promo baru berhasil disimpan!", 6400) </script>';
+				header("Location: index.php");
 			}
 		}
 

@@ -79,7 +79,8 @@
 					echo '<script> Materialize.toast("Ulasan kosong!", 6400) </script>';
 				} 
 			} else if (insertNewUL($psqlconn, $email, $newULkode, $newULrate, $newULulas)) {
-				echo '<script> Materialize.toast("Jasa kirim baru berhasil disimpan!", 6400) </script>';
+				echo '<script> Materialize.toast("Ulasan berhasil disimpan!", 6400) </script>';
+				header("Location: index.php");
 			}
 
 			 if(!isset($_SESSION['login'])){

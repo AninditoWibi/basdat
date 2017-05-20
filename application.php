@@ -52,9 +52,9 @@
    */
    function connectDB() {
       $servername = "localhost";
-      $username = "muhammad.fadhillah";
+      $username = "muhammad.fadhilah";
       $password = "";
-      $dbname = "muhammad.fadhillah";
+      $dbname = "muhammad.fadhilah";
       $portno = "5432";
 
       // Create connection

@@ -17,11 +17,12 @@
 	</head>
 	<body>
 	<?php
+	@session_start();
 		// lakukan integrasi sql via php
 		$servername = "localhost";
 		$username = "postgres";
 		$password = "";
-		$dbname = "aninditoizdihardian";
+		$dbname = "aninditoizhardian";
 		$portno = "5432";
 
 		$conn_string = "host=".$servername." port=".$portno." dbname=".$dbname." user=".$username." password=".$password;
@@ -128,7 +129,9 @@
 			}
 		}
 
-		
+		 if(!isset($_SESSION['admin'])){
+    	header("Location: index.php");
+    } else {
 
 	?>
 		<div class="container">
@@ -162,5 +165,7 @@
 		</div>
 			
 		</div>
+
+		<?php } ?>
 	</body>
 </html>

@@ -9,6 +9,10 @@
     </head>
     <body>
         <?php
+        if(!isset($_SESSION['login'])){
+            header("Location: index.php");
+        } else {
+
     include "../navbar.php"
     ?>
         <div class="container">
@@ -88,5 +92,9 @@
         </div>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+        <?php 
+    }
+         ?>
     </body>
 </html>

@@ -17,6 +17,7 @@
 	</head>
 	<body>
 	<?php
+	@session_start();
 		// lakukan integrasi sql via php
 		$servername = "localhost";
 		$username = "postgres";
@@ -80,6 +81,10 @@
 			} else if (insertNewUL($psqlconn, $email, $newULkode, $newULrate, $newULulas)) {
 				echo '<script> Materialize.toast("Jasa kirim baru berhasil disimpan!", 6400) </script>';
 			}
+
+			 if(!isset($_SESSION['login'])){
+    	header("Location: index.php");
+    } else {
 	?>
 		<div class="container">
 		<div class="card-panel z-depth-2">
@@ -113,5 +118,7 @@
 				</form>
 		</div>
 		</div>
+
+	<?php } ?>
 	</body>
 </html>

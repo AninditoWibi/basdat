@@ -17,6 +17,8 @@
 	</head>
 	<body>
 	<?php
+
+	@session_start();
 		// lakukan integrasi sql via php
 		$servername = "localhost";
 		$username = "postgres";
@@ -155,6 +157,10 @@
 				echo '<script> Materialize.toast("Promo baru berhasil disimpan!", 6400) </script>';
 			}
 		}
+
+		 if(!isset($_SESSION['admin'])){
+    	header("Location: index.php");
+    } else {
 	?>
 	<div class="container">
 	<div class="card-panel z-depth-2">
@@ -210,4 +216,5 @@
 		
 	</div>
 	</body>
+	<?php } ?>
 </html>

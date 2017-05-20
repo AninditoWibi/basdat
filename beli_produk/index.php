@@ -9,7 +9,12 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
-        <?php include '../navbar.php' ?>
+        <?php 
+        if(!isset($_SESSION['login'])) {
+            header("Location: ../index.php");
+        } else { 
+
+        include '../navbar.php' ?>
         <div class="container">
             <div class="row">
                 <div class="col s12 m10 push-m1">
@@ -36,5 +41,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
         <script type="text/javascript" src="../web/src/js/script.js"></script>
         <script type="text/javascript" src="../web/src/js/ajax.js"></script>
+
+        <?php 
+    }
+         ?>
     </body>
 </html>

@@ -21,7 +21,7 @@
 		  		}
 			} else {
 				$_SESSION['wrong'] = true;
-				//header("Location: login.php");
+				header("Location: login.php");
 			}
 			
 		} else {

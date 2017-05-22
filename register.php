@@ -9,21 +9,22 @@
     <script type="text/javascript" src="jquery-3.1.0.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
+	<link type="text/css" rel="stylesheet" href="src/css/style.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
   $( function() {
     $( "#datepicker" ).datepicker();
   } );
   </script>
-</head>    
+</head>
 <body>
-    
+
     <?php
     include "navbar.php"
     ?>
     <h2 class="teal-text center-align">Pendaftaran Pengguna</h2>
 	<div class="row" style="width:500px">
-	<?php 
+	<?php
 		@session_start();
 		$data = [];
 		$data['email'] = null;
@@ -82,14 +83,14 @@
             <div class="input-field col s12">
               Tanggal lahir
 				<input type="text" id="datepicker" name="datepicker" placeholder="" autofocus required class="validate" value="<?=$data['datepicker'] ?>">
-                
+
 			</div>
 			<input class="btn waves-effect waves-light" type="submit" value="Daftar">
 		</form>
 	</div>
 
-    
-    
+
+
     <script type="text/javascript" src="web/src/js/materialize.min.js"></script>
     <script type="text/javascript" src="select.js"></script>
 </body>

@@ -6,6 +6,7 @@
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="web/src/css/materialize.min.css"  media="screen,projection"/>
+	  <link type="text/css" rel="stylesheet" href="src/css/style.css">
 </head>
 <body>
     <?php
@@ -42,8 +43,8 @@
 									<label for="password" >Password</label>
 								</div>
 							</div>
-							<div class="row">
-								<input class="btn waves-effect waves-light" type="submit" value="Submit">
+							<div class="row center-align">
+								<input class="btn waves-effect waves-light btn-large" type="submit" value="Submit">
 							</div>
 						</form>
 					</div>

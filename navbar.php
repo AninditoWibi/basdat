@@ -1,6 +1,6 @@
   <nav>
     <div class="nav-wrapper teal">
-      <a href="#" class="brand-logo">Tokokeren</a>
+      <a href="#" class="brand-logo center">Tokokeren</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
       <?php if(isset($_SESSION['login'])){
         ?>

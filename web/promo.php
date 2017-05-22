@@ -85,7 +85,7 @@
 			$parsedPS = strtotime($elemPS);
 			$parsedPE = strtotime($elemPE);
 
-			if ($elemPS > $elemPE) {
+			if ($parsedPS > $parsedPE) {
 				$isFilledArray["isValidDate"] = "0";
 			}
 
